@@ -1,7 +1,7 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
-import { data } from "../utils/data";
-import IngredientCard from "./ingredient-card";
+import { data } from "../../utils/data";
+import IngredientCard from "../ingredient-card/ingredient-card";
 import styles from "./burger-ingredients.module.css";
 
 const BurgerIngredients = () => {

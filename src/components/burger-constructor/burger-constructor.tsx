@@ -4,7 +4,7 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { data } from "../utils/data";
+import { data } from "../../utils/data";
 import styles from "./burger-constructor.module.css";
 
 //Я тут до конца не понял, как отображать эти карточки, пока мы не можем их сами выбирать, поэтому захардкодил верхнюю и нижнюю булку, а остальное просто замапил
