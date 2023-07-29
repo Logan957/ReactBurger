@@ -1,4 +1,20 @@
-export const data = [
+
+export interface TIngredient {
+   _id: string;
+   name: string;
+   type: string;
+   proteins: number;
+   fat: number;
+   carbohydrates: number;
+   calories: number;
+   price: number;
+   image: string;
+   image_mobile: string;
+   image_large: string;
+   __v: number;
+ }
+
+export const data : Array<TIngredient>= [
     {
        "_id":"60666c42cc7b410027a1a9b1",
        "name":"Краторная булка N-200i",
