@@ -1,8 +1,9 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { data } from "../utils/data";
-import IngridientCard from "./ingredient-card";
+import IngredientCard from "./ingredient-card";
 import styles from "./burger-ingredients.module.css";
+
 const BurgerIngredients = () => {
   const [current, setCurrent] = React.useState("burgers");
 
@@ -39,7 +40,7 @@ const BurgerIngredients = () => {
               .map((x) => {
                 return (
                   <div key={x._id}>
-                    <IngridientCard data={x} />
+                    <IngredientCard ingredient={x} />
                   </div>
                 );
               })}
@@ -54,7 +55,7 @@ const BurgerIngredients = () => {
               .map((x) => {
                 return (
                   <div key={x._id}>
-                    <IngridientCard data={x} />
+                    <IngredientCard ingredient={x} />
                   </div>
                 );
               })}
@@ -69,7 +70,7 @@ const BurgerIngredients = () => {
               .map((x) => {
                 return (
                   <div key={x._id}>
-                    <IngridientCard data={x} />
+                    <IngredientCard ingredient={x} />
                   </div>
                 );
               })}
