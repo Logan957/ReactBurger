@@ -11,7 +11,12 @@ import styles from "./app-header.module.css";
 const AppHeader = () => {
   return (
     <div className={`${styles.header} d-flex d-row`}>
-      <Button htmlType="button" type="secondary" size="large">
+      <Button
+        extraClass={`${styles.constructor_button}`}
+        htmlType="button"
+        type="secondary"
+        size="large"
+      >
         <BurgerIcon type="primary" />
         <span
           className={`${styles.text_white} ms-2 text text_type_main-default`}
@@ -25,10 +30,15 @@ const AppHeader = () => {
           Лента заказа
         </span>
       </Button>
-
-      <Logo />
-
-      <Button htmlType="button" type="secondary" size="large">
+      <div className={`${styles.logo}`}>
+        <Logo />
+      </div>
+      <Button
+        extraClass={`${styles.personal_area_button}`}
+        htmlType="button"
+        type="secondary"
+        size="large"
+      >
         <ProfileIcon type="secondary" />
         <span className="ms-2 text text_type_main-default text_color_inactive">
           Личный кабинет

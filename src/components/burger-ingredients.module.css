@@ -1,0 +1,11 @@
+.card{
+    width: 600px;
+    height: 912px;
+    margin-left: 340px;
+    box-sizing: border-box;
+}
+
+.ingredients_container {
+    max-height: 800px; 
+    overflow-y: scroll;
+  }

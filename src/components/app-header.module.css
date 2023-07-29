@@ -6,3 +6,21 @@
 .text_white{
     color: white;
 }
+
+.constructor_button{
+    margin-left: 300px;
+}
+
+.logo{
+    position: absolute; 
+    left: 50%; 
+    transform: translateX(-50%);
+    top: 5px;
+}
+
+.personal_area_button{
+    position: absolute;
+
+    right: 340px;
+    top: 0;
+}

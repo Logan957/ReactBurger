@@ -1,6 +1,3 @@
-import React from "react";
-import logo from "./logo.svg";
-import "./App.css";
 import AppHeader from "./components/app-header";
 import BurgerConstructor from "./components/burger-constructor";
 import BurgerIngredients from "./components/burger-ingredients";
@@ -9,8 +6,14 @@ function App() {
   return (
     <div className="">
       <AppHeader />
-      <BurgerIngredients />
-      <BurgerConstructor />
+      <div className="d-flex">
+        <div>
+          <BurgerIngredients />
+        </div>
+        <div className="ml-10">
+          <BurgerConstructor />
+        </div>
+      </div>
     </div>
   );
 }
