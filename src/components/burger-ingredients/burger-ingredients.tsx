@@ -9,7 +9,7 @@ const BurgerIngredients = () => {
 
   return (
     <div className={`${styles.card}`}>
-      <div className="text text_type_main-medium mt-8">Соберите бургер</div>
+      <h1 className="text text_type_main-medium mt-8">Соберите бургер</h1>
 
       <div className="d-flex mt-2">
         <Tab
@@ -31,50 +31,29 @@ const BurgerIngredients = () => {
         </Tab>
       </div>
       <div className={`${styles.ingredients_container}`}>
-        <div>
-          <div className="mt-10 text text_type_main-medium">Булки</div>
-
-          <div className={`d-flex flex-wrap mt-6`}>
-            {data
-              .filter((x) => x.type == "bun")
-              .map((x) => {
-                return (
-                  <div key={x._id}>
-                    <IngredientCard ingredient={x} />
-                  </div>
-                );
-              })}
-          </div>
+        <div className="mt-10 text text_type_main-medium">Булки</div>
+        <div className={`d-flex flex-wrap mt-6`}>
+          {data
+            .filter((x) => x.type == "bun")
+            .map((x) => {
+              return <IngredientCard key={x._id} ingredient={x} />;
+            })}
         </div>
-        <div>
-          <div className="mt-10 text text_type_main-medium">Соусы</div>
-
-          <div className="d-flex flex-wrap mt-6">
-            {data
-              .filter((x) => x.type == "sauce")
-              .map((x) => {
-                return (
-                  <div key={x._id}>
-                    <IngredientCard ingredient={x} />
-                  </div>
-                );
-              })}
-          </div>
+        <span className="mt-10 text text_type_main-medium">Соусы</span>
+        <div className="d-flex flex-wrap mt-6">
+          {data
+            .filter((x) => x.type == "sauce")
+            .map((x) => {
+              return <IngredientCard key={x._id} ingredient={x} />;
+            })}
         </div>
-        <div>
-          <div className="mt-10 text text_type_main-medium">Начинки</div>
-
-          <div className="d-flex flex-wrap mt-6">
-            {data
-              .filter((x) => x.type == "main")
-              .map((x) => {
-                return (
-                  <div key={x._id}>
-                    <IngredientCard ingredient={x} />
-                  </div>
-                );
-              })}
-          </div>
+        <div className="mt-10 text text_type_main-medium">Начинки</div>
+        <div className="d-flex flex-wrap mt-6">
+          {data
+            .filter((x) => x.type == "main")
+            .map((x) => {
+              return <IngredientCard ingredient={x} key={x._id} />;
+            })}
         </div>
       </div>
     </div>

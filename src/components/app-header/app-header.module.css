@@ -1,6 +1,9 @@
 
 .header{
     background-color: #1C1C21;
+    height: 88px;
+    padding-top: 26px;
+
 }
 
 .text_white{
@@ -8,19 +11,19 @@
 }
 
 .constructor_button{
-    margin-left: 300px;
+    position: absolute;
+    margin-left: 350px;
 }
 
 .logo{
     position: absolute; 
     left: 50%; 
     transform: translateX(-50%);
-    top: 5px;
+    top: 15px;
 }
 
 .personal_area_button{
     position: absolute;
-
     right: 340px;
-    top: 0;
+    top: 25px;
 }

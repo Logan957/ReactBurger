@@ -4,17 +4,15 @@ import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 
 function App() {
   return (
-    <div className="">
+    <>
       <AppHeader />
-      <div className="d-flex">
-        <div>
-          <BurgerIngredients />
-        </div>
+      <main className="d-flex justify-content-center">
+        <BurgerIngredients />
         <div className="ml-10">
           <BurgerConstructor />
         </div>
-      </div>
-    </div>
+      </main>
+    </>
   );
 }
 

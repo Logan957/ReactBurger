@@ -10,41 +10,36 @@ import styles from "./app-header.module.css";
 
 const AppHeader = () => {
   return (
-    <div className={`${styles.header} d-flex d-row`}>
-      <Button
-        extraClass={`${styles.constructor_button}`}
-        htmlType="button"
-        type="secondary"
-        size="large"
-      >
-        <BurgerIcon type="primary" />
-        <span
-          className={`${styles.text_white} ms-2 text text_type_main-default`}
-        >
-          Конструктор
-        </span>
-      </Button>
-      <Button htmlType="button" type="secondary" size="large">
-        <ListIcon type="secondary" />
-        <span className="ms-2 text text_type_main-default text_color_inactive">
-          Лента заказа
-        </span>
-      </Button>
+    <header className={`${styles.header}`}>
+      <div className={`${styles.constructor_button}`}>
+        <a className="text-decoration-none" href="">
+          <BurgerIcon type="primary" />
+          <span
+            className={`${styles.text_white} ms-2 text text_type_main-default`}
+          >
+            Конструктор
+          </span>
+        </a>
+        <a href="" className="ml-8 text-decoration-none">
+          <ListIcon type="secondary" />
+          <span className="ms-2 text text_type_main-default text_color_inactive">
+            Лента заказа
+          </span>
+        </a>
+      </div>
       <div className={`${styles.logo}`}>
         <Logo />
       </div>
-      <Button
-        extraClass={`${styles.personal_area_button}`}
-        htmlType="button"
-        type="secondary"
-        size="large"
+      <a
+        href=""
+        className={`${styles.personal_area_button} text-decoration-none`}
       >
         <ProfileIcon type="secondary" />
         <span className="ms-2 text text_type_main-default text_color_inactive">
           Личный кабинет
         </span>
-      </Button>
-    </div>
+      </a>
+    </header>
   );
 };
 
