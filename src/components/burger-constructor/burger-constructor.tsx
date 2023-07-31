@@ -7,7 +7,6 @@ import {
 import { data } from "../../utils/data";
 import styles from "./burger-constructor.module.css";
 
-//Я тут до конца не понял, как отображать эти карточки, пока мы не можем их сами выбирать, поэтому захардкодил верхнюю и нижнюю булку, а остальное просто замапил
 const BurgerConstructor = () => {
   return (
     <div className="mt-25">
@@ -21,21 +20,23 @@ const BurgerConstructor = () => {
           thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
         />
         <div className={`${styles.constructor_container} pr-2`}>
-          {data.map((x) => {
-            return (
-              <div key={x._id}>
-                <div className="d-flex align-items-center mt-4">
-                  <DragIcon type="primary" />
-                  <ConstructorElement
-                    extraClass="ml-2"
-                    text={x.name}
-                    price={x.price}
-                    thumbnail={x.image}
-                  />
+          {data
+            .filter((x) => x.type !== "bun")
+            .map((x) => {
+              return (
+                <div key={x._id}>
+                  <div className="d-flex align-items-center mt-4">
+                    <DragIcon type="primary" />
+                    <ConstructorElement
+                      extraClass="ml-2"
+                      text={x.name}
+                      price={x.price}
+                      thumbnail={x.image}
+                    />
+                  </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })}
         </div>
         <ConstructorElement
           extraClass="ml-8 mt-4"

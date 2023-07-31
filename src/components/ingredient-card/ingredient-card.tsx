@@ -10,12 +10,10 @@ interface IIngredientCardProps {
   ingredient: TIngredient;
 }
 
-const IngredientCard: React.FC<IIngredientCardProps> = (
-  props: IIngredientCardProps
-) => {
+const IngredientCard: React.FC<IIngredientCardProps> = (props) => {
   return (
     <div className={`${styles.card} d-flex flex-column align-items-center`}>
-      <img src={props.ingredient.image} />
+      <img src={props.ingredient.image} alt={props.ingredient.name} />
       <div className="d-flex align-items-center">
         <span className="me-2 text text_type_digits-default">
           {props.ingredient.price}
