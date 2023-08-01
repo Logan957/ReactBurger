@@ -1,29 +1,20 @@
-
-.header{
-    background-color: #1C1C21;
-    height: 88px;
-    padding-top: 26px;
-
+.header {
+  background-color: #1c1c21;
+  height: 88px;
+  padding-top: 26px;
 }
 
-.text_white{
-    color: white;
+.text_white {
+  color: white;
 }
 
-.constructor_button{
-    position: absolute;
-    margin-left: 350px;
+.content {
+  width: 1236px;
 }
 
-.logo{
-    position: absolute; 
-    left: 50%; 
-    transform: translateX(-50%);
-    top: 15px;
-}
-
-.personal_area_button{
-    position: absolute;
-    right: 340px;
-    top: 25px;
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 15px;
 }
