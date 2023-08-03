@@ -4,7 +4,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import styles from "./ingredient-card.module.css";
-import { TIngredient } from "../../utils/data";
+import { TIngredient } from "../../utils/types";
 
 interface IIngredientCardProps {
   ingredient: TIngredient;

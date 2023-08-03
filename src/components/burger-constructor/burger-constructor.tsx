@@ -4,10 +4,14 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { data } from "../../utils/data";
+import { TIngredient } from "../../utils/types";
 import styles from "./burger-constructor.module.css";
 
-const BurgerConstructor = () => {
+interface IBurgerConstructorProps {
+  ingredients: Array<TIngredient>;
+}
+
+const BurgerConstructor: React.FC<IBurgerConstructorProps> = (props) => {
   return (
     <div className="mt-25">
       <div className="flex-column">
@@ -20,7 +24,7 @@ const BurgerConstructor = () => {
           thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
         />
         <div className={`${styles.constructor_container} pr-2`}>
-          {data
+          {props.ingredients
             .filter((x) => x.type !== "bun")
             .map((x) => {
               return (
