@@ -1,0 +1,10 @@
+.constructor_container {
+    max-height: 520px;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 20px;
+  }
+
+  .constructor_container > div {
+    scroll-snap-align: start;
+  }
