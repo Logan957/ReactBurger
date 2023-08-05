@@ -6,12 +6,31 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredient } from "../../utils/types";
 import styles from "./burger-constructor.module.css";
+import { memo, useCallback, useState } from "react";
+import Modal from "../modals/modal/modal";
+import OrderDetails from "../modals/order-details/order-details";
 
 interface IBurgerConstructorProps {
   ingredients: Array<TIngredient>;
 }
 
 const BurgerConstructor: React.FC<IBurgerConstructorProps> = (props) => {
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = useCallback(() => {
+    setShowModal(true);
+  }, []);
+
+  const handleCloseModal = useCallback(() => {
+    setShowModal(false);
+  }, []);
+
+  const modal = (
+    <Modal onClose={handleCloseModal}>
+      <OrderDetails />
+    </Modal>
+  );
+
   return (
     <div className="mt-25">
       <div className="flex-column">
@@ -62,12 +81,14 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = (props) => {
           htmlType="button"
           type="primary"
           size="large"
+          onClick={handleOpenModal}
         >
           Оформить заказ
         </Button>
+        {showModal && modal}
       </div>
     </div>
   );
 };
 
-export default BurgerConstructor;
+export default memo(BurgerConstructor);

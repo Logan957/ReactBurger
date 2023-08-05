@@ -6,6 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 
 import styles from "./app-header.module.css";
+import { memo } from "react";
 
 const AppHeader = () => {
   return (
@@ -44,4 +45,4 @@ const AppHeader = () => {
   );
 };
 
-export default AppHeader;
+export default memo(AppHeader);
