@@ -1,79 +1,121 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import React, { memo, useCallback, useState } from "react";
 import { TIngredient } from "../../utils/types";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import styles from "./burger-ingredients.module.css";
+import Modal from "../modals/modal/modal";
+import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 
 interface IBurgerIngredientsProps {
   ingredients: Array<TIngredient>;
 }
 
 const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
-  const [current, setCurrent] = React.useState("burgers");
+  const [currentTab, setCurrentTab] = useState("burgers");
+
+  const [currentIngredient, setCurrentIngredient] =
+    useState<TIngredient | null>(null);
+
+  const [showModal, setShowModal] = useState(false);
+
+  const handleOpenModal = useCallback(
+    (ingredient: TIngredient) => () => {
+      setCurrentIngredient(ingredient);
+      setShowModal(true);
+    },
+    []
+  );
+
+  const handleCloseModal = useCallback(() => {
+    setShowModal(false);
+    setCurrentIngredient(null);
+  }, []);
+
+  const modal = (
+    <Modal title="Детали ингредиента" onClose={handleCloseModal}>
+      <IngredientDetails ingredient={currentIngredient!} />
+    </Modal>
+  );
 
   return (
     <div className={`${styles.card}`}>
       <h1 className="text text_type_main-medium mt-8">Соберите бургер</h1>
-
       <div className="d-flex mt-2">
         <Tab
           value="burgers"
-          active={current === "burgers"}
-          onClick={setCurrent}
+          active={currentTab === "burgers"}
+          onClick={setCurrentTab}
         >
           Бургеры
         </Tab>
-        <Tab value="sauces" active={current === "sauces"} onClick={setCurrent}>
+        <Tab
+          value="sauces"
+          active={currentTab === "sauces"}
+          onClick={setCurrentTab}
+        >
           Соусы
         </Tab>
         <Tab
           value="toppings"
-          active={current === "toppings"}
-          onClick={setCurrent}
+          active={currentTab === "toppings"}
+          onClick={setCurrentTab}
         >
           Начинки
         </Tab>
       </div>
       <div className={`${styles.ingredients_container}`}>
-        {current === "burgers" && (
+        {currentTab === "burgers" && (
           <>
             <div className="mt-10 text text_type_main-medium">Булки</div>
             <div className={`d-flex flex-wrap mt-6`}>
               {props.ingredients
                 .filter((x) => x.type == "bun")
                 .map((x) => {
-                  return <IngredientCard key={x._id} ingredient={x} />;
+                  return (
+                    <div key={x._id} onClick={handleOpenModal(x)}>
+                      <IngredientCard ingredient={x} />
+                    </div>
+                  );
                 })}
             </div>
           </>
         )}
-        {current === "sauces" && (
+        {currentTab === "sauces" && (
           <>
             <div className="mt-10 text text_type_main-medium">Соусы</div>
             <div className="d-flex flex-wrap mt-6">
               {props.ingredients
                 .filter((x) => x.type == "sauce")
                 .map((x) => {
-                  return <IngredientCard key={x._id} ingredient={x} />;
+                  return (
+                    <div key={x._id} onClick={handleOpenModal(x)}>
+                      <IngredientCard ingredient={x} />
+                    </div>
+                  );
                 })}
             </div>
           </>
         )}
-        {current === "toppings" && (
+        {currentTab === "toppings" && (
           <>
             <div className="mt-10 text text_type_main-medium">Начинки</div>
             <div className="d-flex flex-wrap mt-6">
               {props.ingredients
                 .filter((x) => x.type == "main")
                 .map((x) => {
-                  return <IngredientCard ingredient={x} key={x._id} />;
+                  return (
+                    <div key={x._id} onClick={handleOpenModal(x)}>
+                      <IngredientCard key={x._id} ingredient={x} />
+                    </div>
+                  );
                 })}
             </div>
           </>
         )}
       </div>
+      {showModal && modal}
     </div>
   );
 };
 
-export default BurgerIngredients;
+export default memo(BurgerIngredients);
