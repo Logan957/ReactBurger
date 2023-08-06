@@ -1,0 +1,17 @@
+.modal {
+    padding: 40px;
+    background-color: #1C1C21;
+    overflow-y: hidden !important;
+    position: relative;
+    display:inline-block;
+    border-radius: 40px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    
+}
+
+.modal .header {
+    text-align: right;
+}

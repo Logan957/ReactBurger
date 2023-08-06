@@ -4,12 +4,28 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { data } from "../../utils/data";
+import { TIngredient } from "../../utils/types";
 import styles from "./burger-constructor.module.css";
+import { memo } from "react";
+import Modal from "../modals/modal/modal";
+import OrderDetails from "../modals/order-details/order-details";
+import { useModal } from "../../hooks/useModal";
 
-const BurgerConstructor = () => {
+interface IBurgerConstructorProps {
+  ingredients: Array<TIngredient>;
+}
+
+const BurgerConstructor: React.FC<IBurgerConstructorProps> = (props) => {
+  const { isModalOpen, openModal, closeModal } = useModal();
+
+  const modal = (
+    <Modal onClose={closeModal}>
+      <OrderDetails />
+    </Modal>
+  );
+
   return (
-    <div className="mt-25">
+    <div className="mt-25 ml-10">
       <div className="flex-column">
         <ConstructorElement
           extraClass="ml-8"
@@ -20,7 +36,7 @@ const BurgerConstructor = () => {
           thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
         />
         <div className={`${styles.constructor_container} pr-2`}>
-          {data
+          {props.ingredients
             .filter((x) => x.type !== "bun")
             .map((x) => {
               return (
@@ -58,12 +74,14 @@ const BurgerConstructor = () => {
           htmlType="button"
           type="primary"
           size="large"
+          onClick={openModal}
         >
           Оформить заказ
         </Button>
+        {isModalOpen && modal}
       </div>
     </div>
   );
 };
 
-export default BurgerConstructor;
+export default memo(BurgerConstructor);
