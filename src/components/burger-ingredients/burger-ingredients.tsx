@@ -5,6 +5,7 @@ import IngredientCard from "../ingredient-card/ingredient-card";
 import styles from "./burger-ingredients.module.css";
 import Modal from "../modals/modal/modal";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
+import { useModal } from "../../hooks/useModal";
 
 interface IBurgerIngredientsProps {
   ingredients: Array<TIngredient>;
@@ -16,18 +17,17 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
   const [currentIngredient, setCurrentIngredient] =
     useState<TIngredient | null>(null);
 
-  const [showModal, setShowModal] = useState(false);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
-  const handleOpenModal = useCallback(
-    (ingredient: TIngredient) => () => {
-      setCurrentIngredient(ingredient);
-      setShowModal(true);
-    },
-    []
-  );
+  // Верно же, что тут тогда не нужен useCallback?
+  const handleOpenModal = (ingredient: TIngredient) => () => {
+    setCurrentIngredient(ingredient);
+    openModal();
+  };
 
+  // А тут нужен раз передаем как props
   const handleCloseModal = useCallback(() => {
-    setShowModal(false);
+    closeModal();
     setCurrentIngredient(null);
   }, []);
 
@@ -113,7 +113,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
           </>
         )}
       </div>
-      {showModal && modal}
+      {isModalOpen && modal}
     </div>
   );
 };

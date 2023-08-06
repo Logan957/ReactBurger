@@ -6,33 +6,26 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { TIngredient } from "../../utils/types";
 import styles from "./burger-constructor.module.css";
-import { memo, useCallback, useState } from "react";
+import { memo } from "react";
 import Modal from "../modals/modal/modal";
 import OrderDetails from "../modals/order-details/order-details";
+import { useModal } from "../../hooks/useModal";
 
 interface IBurgerConstructorProps {
   ingredients: Array<TIngredient>;
 }
 
 const BurgerConstructor: React.FC<IBurgerConstructorProps> = (props) => {
-  const [showModal, setShowModal] = useState(false);
-
-  const handleOpenModal = useCallback(() => {
-    setShowModal(true);
-  }, []);
-
-  const handleCloseModal = useCallback(() => {
-    setShowModal(false);
-  }, []);
+  const { isModalOpen, openModal, closeModal } = useModal();
 
   const modal = (
-    <Modal onClose={handleCloseModal}>
+    <Modal onClose={closeModal}>
       <OrderDetails />
     </Modal>
   );
 
   return (
-    <div className="mt-25">
+    <div className="mt-25 ml-10">
       <div className="flex-column">
         <ConstructorElement
           extraClass="ml-8"
@@ -81,11 +74,11 @@ const BurgerConstructor: React.FC<IBurgerConstructorProps> = (props) => {
           htmlType="button"
           type="primary"
           size="large"
-          onClick={handleOpenModal}
+          onClick={openModal}
         >
           Оформить заказ
         </Button>
-        {showModal && modal}
+        {isModalOpen && modal}
       </div>
     </div>
   );

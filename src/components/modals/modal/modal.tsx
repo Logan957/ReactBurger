@@ -9,6 +9,7 @@ import {
 import ReactDOM from "react-dom";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from ".//modal.module.css";
+import ModalOverlay from "../modal-overlay/modal-overlay";
 
 const modalRoot = document.getElementById("modals") as HTMLElement;
 
@@ -19,36 +20,33 @@ interface IModalProps {
 }
 
 const Modal: FC<IModalProps> = ({ children, onClose, title }) => {
-  const handleCloseModal = useCallback(() => {
+  const handleCloseModal = () => {
     if (onClose !== undefined) {
       onClose();
     }
-  }, []);
+  };
 
-  const close = useCallback(
-    (e: KeyboardEvent) => {
+  useEffect(() => {
+    const close = (e: KeyboardEvent) => {
       if (e.key === "Escape" || e.key === "Esc") {
         handleCloseModal();
       }
-    },
-    [handleCloseModal]
-  );
+    };
 
-  useEffect(() => {
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
-  }, [close]);
-
-  const handleDivClick = useCallback((e: SyntheticEvent) => {
-    e.stopPropagation();
   }, []);
+
+  const handleDivClick = (e: SyntheticEvent) => {
+    e.stopPropagation();
+  };
 
   const clickOverlay = useCallback(() => {
     handleCloseModal();
-  }, [handleCloseModal]);
+  }, []);
 
   return ReactDOM.createPortal(
-    <div onClick={clickOverlay} className={`${styles.modal_overlay}`}>
+    <ModalOverlay handleCloseModal={clickOverlay}>
       <div className={`${styles.modal}`} onClick={handleDivClick}>
         <div className="d-flex justify-content-between">
           <div className="text text_type_main-large">{title ?? ""}</div>
@@ -56,7 +54,7 @@ const Modal: FC<IModalProps> = ({ children, onClose, title }) => {
         </div>
         <div className={`${styles.body}`}>{children}</div>
       </div>
-    </div>,
+    </ModalOverlay>,
     modalRoot
   );
 };

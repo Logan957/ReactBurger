@@ -14,21 +14,26 @@ function App() {
     async function fetchData() {
       try {
         const response = await fetch(`${API_URL}`);
-        const data = await response.json();
-        setIngridients(data.data);
-        setIsLoading(false);
+        response.json().then((data) => {
+          if (response.ok) {
+            setIngridients(data.data);
+          } else {
+            return Promise.reject(`Ошибка ${response.status}`);
+          }
+        });
       } catch (error) {
         console.error(error);
         setIsError(true);
+      } finally {
         setIsLoading(false);
       }
     }
 
     if (!isLoading) {
+      setIsLoading(true);
       fetchData();
     }
   }, []);
-
   return (
     <>
       <AppHeader />
@@ -38,9 +43,7 @@ function App() {
         ) : (
           <>
             <BurgerIngredients ingredients={ingridients} />
-            <div className="ml-10">
-              <BurgerConstructor ingredients={ingridients} />
-            </div>
+            <BurgerConstructor ingredients={ingridients} />
           </>
         )}
       </main>
