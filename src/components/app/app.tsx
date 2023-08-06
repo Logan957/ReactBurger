@@ -7,22 +7,42 @@ import { useState, useEffect, memo } from "react";
 
 function App() {
   const [ingridients, setIngridients] = useState<Array<TIngredient>>([]);
+  const [isError, setIsError] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`${API_URL}`)
-      .then((response) => response.json())
-      .then((response) => setIngridients(response.data))
-      .catch((error) => console.error(error));
+    async function fetchData() {
+      try {
+        const response = await fetch(`${API_URL}`);
+        const data = await response.json();
+        setIngridients(data.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error(error);
+        setIsError(true);
+        setIsLoading(false);
+      }
+    }
+
+    if (!isLoading) {
+      fetchData();
+    }
   }, []);
 
   return (
     <>
       <AppHeader />
       <main className="d-flex justify-content-center">
-        <BurgerIngredients ingredients={ingridients} />
-        <div className="ml-10">
-          <BurgerConstructor ingredients={ingridients} />
-        </div>
+        {isError ? (
+          <p>Ошибка при получении данных</p>
+        ) : (
+          <>
+            <BurgerIngredients ingredients={ingridients} />
+            <div className="ml-10">
+              <BurgerConstructor ingredients={ingridients} />
+            </div>
+          </>
+        )}
       </main>
     </>
   );
