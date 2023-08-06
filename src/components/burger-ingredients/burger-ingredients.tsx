@@ -29,7 +29,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
   const handleCloseModal = useCallback(() => {
     closeModal();
     setCurrentIngredient(null);
-  }, []);
+  }, [closeModal]);
 
   const modal = (
     <Modal title="Детали ингредиента" onClose={handleCloseModal}>
@@ -69,7 +69,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
             <div className="mt-10 text text_type_main-medium">Булки</div>
             <div className={`d-flex flex-wrap mt-6`}>
               {props.ingredients
-                .filter((x) => x.type == "bun")
+                .filter((x) => x.type === "bun")
                 .map((x) => {
                   return (
                     <div key={x._id} onClick={handleOpenModal(x)}>
@@ -85,7 +85,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
             <div className="mt-10 text text_type_main-medium">Соусы</div>
             <div className="d-flex flex-wrap mt-6">
               {props.ingredients
-                .filter((x) => x.type == "sauce")
+                .filter((x) => x.type === "sauce")
                 .map((x) => {
                   return (
                     <div key={x._id} onClick={handleOpenModal(x)}>
@@ -101,7 +101,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
             <div className="mt-10 text text_type_main-medium">Начинки</div>
             <div className="d-flex flex-wrap mt-6">
               {props.ingredients
-                .filter((x) => x.type == "main")
+                .filter((x) => x.type === "main")
                 .map((x) => {
                   return (
                     <div key={x._id} onClick={handleOpenModal(x)}>
