@@ -1,6 +1,6 @@
 import React, { memo } from "react";
+import { TIngredient } from "../../services/types/ingridient-types";
 import styles from "./ingredient-card.module.css";
-import { TIngredient } from "../../utils/types";
 
 interface IIngredientCardProps {
   ingredient: TIngredient;

@@ -1,9 +1,9 @@
-import { API_URL } from "../../utils/config";
-import { TIngredient } from "../../utils/types";
+import { memo, useEffect, useState } from "react";
+import { API_URL } from "../../services/constants/constant";
+import { TIngredient } from "../../services/types/ingridient-types";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { useState, useEffect, memo } from "react";
 
 function App() {
   const [ingridients, setIngridients] = useState<Array<TIngredient>>([]);
