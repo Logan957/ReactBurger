@@ -4,12 +4,12 @@ import {
   CurrencyIcon,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredient } from "../../utils/types";
-import styles from "./burger-constructor.module.css";
 import { memo } from "react";
+import { useModal } from "../../hooks/useModal";
+import { TIngredient } from "../../services/types/ingridient-types";
 import Modal from "../modals/modal/modal";
 import OrderDetails from "../modals/order-details/order-details";
-import { useModal } from "../../hooks/useModal";
+import styles from "./burger-constructor.module.css";
 
 interface IBurgerConstructorProps {
   ingredients: Array<TIngredient>;

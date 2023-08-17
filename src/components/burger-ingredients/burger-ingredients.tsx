@@ -1,11 +1,11 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { memo, useCallback, useState } from "react";
-import { TIngredient } from "../../utils/types";
-import IngredientCard from "../ingredient-card/ingredient-card";
-import styles from "./burger-ingredients.module.css";
-import Modal from "../modals/modal/modal";
-import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import { useModal } from "../../hooks/useModal";
+import { TIngredient } from "../../services/types/ingridient-types";
+import IngredientCard from "../ingredient-card/ingredient-card";
+import IngredientDetails from "../modals/ingredient-details/ingredient-details";
+import Modal from "../modals/modal/modal";
+import styles from "./burger-ingredients.module.css";
 
 interface IBurgerIngredientsProps {
   ingredients: Array<TIngredient>;
