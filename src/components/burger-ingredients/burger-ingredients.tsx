@@ -1,7 +1,7 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { memo, useCallback, useState } from "react";
 import { useModal } from "../../hooks/useModal";
-import { TIngredient } from "../../services/types/ingridient-types";
+import { TIngredient } from "../../services/types/ingredient-types";
 import IngredientCard from "../ingredient-card/ingredient-card";
 import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import Modal from "../modals/modal/modal";

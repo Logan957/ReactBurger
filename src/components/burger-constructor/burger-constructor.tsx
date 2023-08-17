@@ -6,7 +6,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { memo } from "react";
 import { useModal } from "../../hooks/useModal";
-import { TIngredient } from "../../services/types/ingridient-types";
+import { TIngredient } from "../../services/types/ingredient-types";
 import Modal from "../modals/modal/modal";
 import OrderDetails from "../modals/order-details/order-details";
 import styles from "./burger-constructor.module.css";

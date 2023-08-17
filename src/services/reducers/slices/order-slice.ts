@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SliceNames } from "../../constants/constant";
 import { TOrderState } from "../../types/reducer-type";
+import type { PayloadAction } from '@reduxjs/toolkit'
 
 const initialState: TOrderState = {
   isCreateLoading: false,
@@ -13,7 +14,8 @@ const initialState: TOrderState = {
 const orderSlice = createSlice({
   name: SliceNames.ORDER,
   initialState: initialState,
-  reducers: {},
+  reducers: {
+  },
 });
 
 export const orderReducer = orderSlice.reducer;

@@ -1,12 +1,12 @@
 import { memo, useEffect, useState } from "react";
 import { API_URL } from "../../services/constants/constant";
-import { TIngredient } from "../../services/types/ingridient-types";
+import { TIngredient } from "../../services/types/ingredient-types";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 
 function App() {
-  const [ingridients, setIngridients] = useState<Array<TIngredient>>([]);
+  const [ingredients, setIngridients] = useState<Array<TIngredient>>([]);
   const [isError, setIsError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -33,7 +33,7 @@ function App() {
       setIsLoading(true);
       fetchData();
     }
-  }, []);
+  }, [isLoading]);
   return (
     <>
       <AppHeader />
@@ -42,8 +42,8 @@ function App() {
           <p>Ошибка при получении данных</p>
         ) : (
           <>
-            <BurgerIngredients ingredients={ingridients} />
-            <BurgerConstructor ingredients={ingridients} />
+            <BurgerIngredients ingredients={ingredients} />
+            <BurgerConstructor ingredients={ingredients} />
           </>
         )}
       </main>

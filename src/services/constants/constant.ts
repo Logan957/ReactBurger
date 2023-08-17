@@ -1,5 +1,5 @@
 export enum SliceNames {
-  INGRIDIENTS = "INGRIDIENTS",
+  INGREDIENTS = "INGREDIENTS",
   ORDER = "ORDER",
 }
 

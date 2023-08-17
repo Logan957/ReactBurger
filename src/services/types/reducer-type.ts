@@ -5,7 +5,7 @@ import {
   ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { store } from "../store";
-import { TIngredient } from "./ingridient-types";
+import { TIngredient } from "./ingredient-types";
 
 export type TRootState = ReturnType<typeof store.getState>;
 export type TAppDispatch = typeof store.dispatch &
@@ -14,8 +14,8 @@ export type TAppThunk = ThunkAction<void, TRootState, null, Action<string>>;
 
 export type TIngridientState = {
   isIngridientsLoading: boolean;
-  ingridientsError: string;
-  ingridients: Array<TIngredient>;
+  ingredientsError: string;
+  ingredients: Array<TIngredient>;
 
   currentIngridient: TIngredient | null;
 };

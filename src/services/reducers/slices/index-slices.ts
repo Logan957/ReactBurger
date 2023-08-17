@@ -1,3 +1,3 @@
-import { ingridientReducer } from "./ingridient-slice";
+import { ingredientReducer } from "./ingredient-slice";
 import { orderReducer } from "./order-slice";
-export { ingridientReducer, orderReducer };
+export { ingredientReducer, orderReducer };
