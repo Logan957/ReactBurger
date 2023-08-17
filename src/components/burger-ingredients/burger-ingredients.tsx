@@ -19,13 +19,11 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
 
   const { isModalOpen, openModal, closeModal } = useModal();
 
-  // Верно же, что тут тогда не нужен useCallback?
   const handleOpenModal = (ingredient: TIngredient) => () => {
     setCurrentIngredient(ingredient);
     openModal();
   };
 
-  // А тут нужен раз передаем как props
   const handleCloseModal = useCallback(() => {
     closeModal();
     setCurrentIngredient(null);
