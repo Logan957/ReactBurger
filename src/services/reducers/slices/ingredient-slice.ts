@@ -12,10 +12,28 @@ const initialState: TIngridientState = {
   currentIngridient: null,
 };
 
-const ingredientSlice = createSlice({
+export const ingredientSlice = createSlice({
   name: SliceNames.INGREDIENTS,
   initialState: initialState,
   reducers: {
+
+      setIsIngridientsLoading (state, action: PayloadAction<boolean>) {
+      state.isIngridientsLoading = action.payload
+    },
+
+
+    setIngredients(state, action: PayloadAction<Array<TIngredient>>) {
+      state.ingredients = action.payload
+    },
+
+    setIngredientsError(state, action: PayloadAction<string>) {
+      state.ingredientsError = action.payload
+    },
+
+
+    setCurrentIngredient(state, action: PayloadAction<TIngredient | null>) {
+      state.currentIngridient = action.payload
+    },
   },
 });
 
