@@ -1,8 +1,8 @@
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { SliceNames } from "../../constants/constant";
-import { TIngridientState } from "../../types/reducer-type";
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { TIngredient } from "../../types/ingredient-types";
+import { TIngridientState } from "../../types/reducer-type";
 
 const initialState: TIngridientState = {
   isIngridientsLoading: false,
@@ -16,25 +16,41 @@ export const ingredientSlice = createSlice({
   name: SliceNames.INGREDIENTS,
   initialState: initialState,
   reducers: {
-
-      setIsIngridientsLoading (state, action: PayloadAction<boolean>) {
-      state.isIngridientsLoading = action.payload
+    setIngridientsLoading(state: TIngridientState) {
+      state.isIngridientsLoading = true;
+      state.ingredientsError = "";
     },
 
-
-    setIngredients(state, action: PayloadAction<Array<TIngredient>>) {
-      state.ingredients = action.payload
+    setIngredients(
+      state: TIngridientState,
+      action: PayloadAction<Array<TIngredient>>
+    ) {
+      state.isIngridientsLoading = false;
+      state.ingredients = action.payload;
     },
 
-    setIngredientsError(state, action: PayloadAction<string>) {
-      state.ingredientsError = action.payload
+    setIngredientsError(
+      state: TIngridientState,
+      action: PayloadAction<string>
+    ) {
+      state.isIngridientsLoading = false;
+      state.ingredientsError = action.payload;
     },
 
-
-    setCurrentIngredient(state, action: PayloadAction<TIngredient | null>) {
-      state.currentIngridient = action.payload
+    setCurrentIngredient(
+      state: TIngridientState,
+      action: PayloadAction<TIngredient | null>
+    ) {
+      state.currentIngridient = action.payload;
     },
   },
 });
+
+export const {
+  setIngridientsLoading,
+  setIngredients,
+  setIngredientsError,
+  setCurrentIngredient,
+} = ingredientSlice.actions;
 
 export const ingredientReducer = ingredientSlice.reducer;

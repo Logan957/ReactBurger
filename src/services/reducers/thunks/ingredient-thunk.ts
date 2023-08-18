@@ -1,25 +1,27 @@
-import { Dispatch } from 'redux';
-import { API_URL } from '../../constants/constant';
-import { ThunkAction } from 'redux-thunk';
-import {ingredientSlice}  from "../slices/ingredient-slice"
-import { TIngridientState } from '../../types/reducer-type';
-import { AnyAction } from 'redux';
+import { API_URL } from "../../constants/constant";
+import { TAppDispatch, TAppThunk } from "../../types/reducer-type";
+import {
+  setIngredients,
+  setIngredientsError,
+  setIngridientsLoading,
+} from "../slices/ingredient-slice";
 
-export const getIngredients = () : ThunkAction<void, TIngridientState, null, AnyAction>  => async (dispatch: Dispatch)=> {
-
+export const getIngredients =
+  (): TAppThunk => async (dispatch: TAppDispatch) => {
     try {
-        dispatch(ingredientSlice.actions.setIsIngridientsLoading(true));
-        const response = await fetch(`${API_URL}`);
-        response.json().then((data) => {
-          if (response.ok) {
-            dispatch(ingredientSlice.actions.setCurrentIngredient(data.data));
-          } else {
-            return Promise.reject(`Ошибка ${response.status}`);
-          }
-        });
-      } catch (error) {
-        dispatch(ingredientSlice.actions.setIngredientsError("Ошибка"));
-      } finally {
-        dispatch(ingredientSlice.actions.setIsIngridientsLoading(false));
-      }
-  }
+      dispatch(setIngridientsLoading());
+      const response = await fetch(`${API_URL}`);
+      response.json().then((data) => {
+        if (response.ok) {
+          console.log(data.data);
+          dispatch(setIngredients(data.data));
+        } else {
+          return Promise.reject(`Ошибка ${response.status}`);
+        }
+      });
+    } catch (error) {
+      dispatch(setIngredientsError("Ошибка"));
+    } finally {
+      dispatch(setIngridientsLoading());
+    }
+  };

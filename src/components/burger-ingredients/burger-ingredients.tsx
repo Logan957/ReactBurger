@@ -1,5 +1,6 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { memo, useCallback, useState } from "react";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
 import { useModal } from "../../hooks/useModal";
 import { TIngredient } from "../../services/types/ingredient-types";
 import IngredientCard from "../ingredient-card/ingredient-card";
@@ -7,11 +8,7 @@ import IngredientDetails from "../modals/ingredient-details/ingredient-details";
 import Modal from "../modals/modal/modal";
 import styles from "./burger-ingredients.module.css";
 
-interface IBurgerIngredientsProps {
-  ingredients: Array<TIngredient>;
-}
-
-const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
+const BurgerIngredients: React.FC = () => {
   const [currentTab, setCurrentTab] = useState("burgers");
 
   const [currentIngredient, setCurrentIngredient] =
@@ -28,6 +25,8 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
     closeModal();
     setCurrentIngredient(null);
   }, [closeModal]);
+
+  const { ingredients } = useTypedSelector((state) => state.ingredient);
 
   const modal = (
     <Modal title="Детали ингредиента" onClose={handleCloseModal}>
@@ -66,7 +65,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
           <>
             <div className="mt-10 text text_type_main-medium">Булки</div>
             <div className={`d-flex flex-wrap mt-6`}>
-              {props.ingredients
+              {ingredients
                 .filter((x) => x.type === "bun")
                 .map((x) => {
                   return (
@@ -82,7 +81,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
           <>
             <div className="mt-10 text text_type_main-medium">Соусы</div>
             <div className="d-flex flex-wrap mt-6">
-              {props.ingredients
+              {ingredients
                 .filter((x) => x.type === "sauce")
                 .map((x) => {
                   return (
@@ -98,7 +97,7 @@ const BurgerIngredients: React.FC<IBurgerIngredientsProps> = (props) => {
           <>
             <div className="mt-10 text text_type_main-medium">Начинки</div>
             <div className="d-flex flex-wrap mt-6">
-              {props.ingredients
+              {ingredients
                 .filter((x) => x.type === "main")
                 .map((x) => {
                   return (
