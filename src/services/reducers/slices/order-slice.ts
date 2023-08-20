@@ -4,7 +4,7 @@ import { TOrderState } from "../../types/reducer-type";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { TIngredient } from "../../types/ingredient-type";
 import { TNewOrder } from "../../types/order-type";
-
+import { v4 as uuidv4 } from 'uuid';
 const initialState: TOrderState = {
   isCreateLoading: false,
   createdOrder: null,
@@ -47,7 +47,11 @@ const orderSlice = createSlice({
       state: TOrderState,
       action: PayloadAction<TIngredient>
     ) {
-        state.newOrder?.ingredients.push(action.payload);
+      const newIngridient = {
+        ...action.payload,
+        uniqueId: uuidv4()
+      };
+      state.newOrder?.ingredients.push(newIngridient);
     },
 
     removeIngridient(
@@ -80,6 +84,17 @@ const orderSlice = createSlice({
     ){
       state.newOrder.totalPrice = action.payload;
     },
+
+    
+    resetNewOrder(
+      state: TOrderState,
+    ){
+      state.newOrder = {
+        currentBun : null, 
+        ingredients : [],
+        totalPrice : 0,
+      };
+    },
   },
 });
 
@@ -91,7 +106,7 @@ export const {
   removeIngridient,
   setCurrentBun,
   setTotalPrice,
-  setIngredients
+  setIngredients,
+  resetNewOrder
 } = orderSlice.actions;
-
 export const orderReducer = orderSlice.reducer;

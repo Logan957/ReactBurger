@@ -3,6 +3,8 @@ export enum SliceNames {
   ORDER = "ORDER",
 }
 
-export const API_URL_INGREDIENTS = "https://norma.nomoreparties.space/api/ingredients";
+export const BASE_URL = "https://norma.nomoreparties.space/api"
 
-export const API_URL_ORDERS = "https://norma.nomoreparties.space/api/orders"
+export const API_URL_INGREDIENTS = `${BASE_URL}/ingredients`;
+
+export const API_URL_ORDERS = `${BASE_URL}/orders`;

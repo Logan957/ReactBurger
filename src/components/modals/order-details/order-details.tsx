@@ -2,6 +2,7 @@ import React, { memo } from "react";
 import styles from "./order-detail.module.css";
 import DoneIcon from "../../icons/done-icon";
 import { useTypedSelector } from "../../../hooks/use-typed-selector";
+import Loader from "../../loader/loader";
 
 const OrderDetails: React.FC = () => {
   const { createdOrder, createError, isCreateLoading } = useTypedSelector(
@@ -10,7 +11,11 @@ const OrderDetails: React.FC = () => {
 
   return (
     <div className={styles.card}>
-      {!isCreateLoading && (
+      {isCreateLoading ? (
+        <>
+          <Loader />
+        </>
+      ) : (
         <div className="d-flex flex-column align-items-center">
           {createError !== "" ? (
             <span className="text_type_main-large">

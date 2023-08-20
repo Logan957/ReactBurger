@@ -2,7 +2,8 @@ import { API_URL_ORDERS } from "../../constants/constant";
 import { TIngredient } from "../../types/ingredient-type";
 import { TNewOrder } from "../../types/order-type";
 import { TAppDispatch, TAppThunk } from "../../types/reducer-type";
-import { addNewIngridient, removeIngridient, createOrderError, createOrderLoading, createdOrder, setCurrentBun,setTotalPrice, setIngredients } from "../slices/order-slice";
+import { request } from "../../utils";
+import { addNewIngridient, removeIngridient, createOrderError, createOrderLoading, createdOrder, setCurrentBun,setTotalPrice, setIngredients, resetNewOrder } from "../slices/order-slice";
 
 export const addIngredient =
   (ingredient: TIngredient): TAppThunk => async (dispatch: TAppDispatch) => {
@@ -21,6 +22,7 @@ export const addIngredient =
 
       dispatch(removeIngridient(index))
   };
+
 
   export const clearCreatedOrderThunk =
   (): TAppThunk => async (dispatch: TAppDispatch) => {
@@ -45,7 +47,7 @@ export const addIngredient =
   
   try {
     dispatch(createOrderLoading());
-    const response = await fetch(`${API_URL_ORDERS}`, {
+    const response = await request(`${API_URL_ORDERS}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,17 +56,9 @@ export const addIngredient =
         ingredients: ids
       })
     });
-
-    if (response.ok) {
-      const data = await response.json();
-      dispatch(createdOrder(data.order.number));
-    } else {
-      console.log("error 0");
-      const errorText = await response.text();
-      throw new Error(`Ошибка ${response.status}: ${errorText}`);
-    }
+    dispatch(createdOrder(response.order.number));
+    dispatch(resetNewOrder());
   } catch (error) {
-    console.log("error 1");
     dispatch(createOrderError("Ошибка"));
   }
 }

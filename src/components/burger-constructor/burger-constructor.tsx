@@ -33,7 +33,7 @@ const BurgerConstructor: React.FC = () => {
     const totalPrice =
       (newOrder.currentBun?.price! * 2 || 0) +
       newOrder.ingredients.reduce(
-        (acc, ingredient) => acc + ingredient.price,
+        (acc: number, ingredient: TIngredient) => acc + ingredient.price,
         0
       );
     dispatch(setTotalPriceThunk(totalPrice));
@@ -101,7 +101,7 @@ const BurgerConstructor: React.FC = () => {
             <div className={`${styles.constructor_container} pr-2`}>
               {newOrder.ingredients.map((x, index) => {
                 return (
-                  <div key={x._id + index}>
+                  <div key={x.uniqueId}>
                     <DragConstructorElement
                       moveConstructor={moveConstructor}
                       removeIngredient={removeIngredient}
@@ -134,6 +134,7 @@ const BurgerConstructor: React.FC = () => {
           <CurrencyIcon type="primary" />
         </div>
         <Button
+          disabled={newOrder.currentBun == null}
           extraClass="ml-10"
           htmlType="button"
           type="primary"
