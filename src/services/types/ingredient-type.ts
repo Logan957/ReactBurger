@@ -12,3 +12,4 @@ export interface TIngredient {
   image_large: string;
   __v: number;
 }
+ 

@@ -1,7 +1,7 @@
 import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { SliceNames } from "../../constants/constant";
-import { TIngredient } from "../../types/ingredient-types";
+import { TIngredient } from "../../types/ingredient-type";
 import { TIngridientState } from "../../types/reducer-type";
 
 const initialState: TIngridientState = {
@@ -16,12 +16,12 @@ export const ingredientSlice = createSlice({
   name: SliceNames.INGREDIENTS,
   initialState: initialState,
   reducers: {
-    setIngridientsLoading(state: TIngridientState) {
+    getIngridientsLoading(state: TIngridientState) {
       state.isIngridientsLoading = true;
       state.ingredientsError = "";
     },
 
-    setIngredients(
+    getIngredients(
       state: TIngridientState,
       action: PayloadAction<Array<TIngredient>>
     ) {
@@ -29,7 +29,7 @@ export const ingredientSlice = createSlice({
       state.ingredients = action.payload;
     },
 
-    setIngredientsError(
+    getIngredientsError(
       state: TIngridientState,
       action: PayloadAction<string>
     ) {
@@ -47,9 +47,9 @@ export const ingredientSlice = createSlice({
 });
 
 export const {
-  setIngridientsLoading,
-  setIngredients,
-  setIngredientsError,
+  getIngridientsLoading,
+  getIngredients,
+  getIngredientsError,
   setCurrentIngredient,
 } = ingredientSlice.actions;
 

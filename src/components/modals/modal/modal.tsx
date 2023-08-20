@@ -20,11 +20,11 @@ interface IModalProps {
 }
 
 const Modal: FC<IModalProps> = ({ children, onClose, title }) => {
-  const handleCloseModal = () => {
+  const handleCloseModal = useCallback(() => {
     if (onClose !== undefined) {
       onClose();
     }
-  };
+  }, [onClose]);
 
   useEffect(() => {
     const close = (e: KeyboardEvent) => {
@@ -35,7 +35,7 @@ const Modal: FC<IModalProps> = ({ children, onClose, title }) => {
 
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
-  }, []);
+  }, [handleCloseModal]);
 
   const handleDivClick = (e: SyntheticEvent) => {
     e.stopPropagation();
@@ -43,7 +43,7 @@ const Modal: FC<IModalProps> = ({ children, onClose, title }) => {
 
   const clickOverlay = useCallback(() => {
     handleCloseModal();
-  }, []);
+  }, [handleCloseModal]);
 
   return ReactDOM.createPortal(
     <ModalOverlay handleCloseModal={clickOverlay}>

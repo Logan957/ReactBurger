@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { TIngredient } from "../../../services/types/ingredient-types";
+import { TIngredient } from "../../../services/types/ingredient-type";
 import styles from "./ingredient-details.module.css";
 
 interface IIngredientDetailsProps {

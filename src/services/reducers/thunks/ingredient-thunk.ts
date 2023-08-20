@@ -1,27 +1,24 @@
-import { API_URL } from "../../constants/constant";
+import { API_URL_INGREDIENTS } from "../../constants/constant";
 import { TAppDispatch, TAppThunk } from "../../types/reducer-type";
 import {
-  setIngredients,
-  setIngredientsError,
-  setIngridientsLoading,
+  getIngredients,
+  getIngredientsError,
+  getIngridientsLoading,
 } from "../slices/ingredient-slice";
 
-export const getIngredients =
+export const getIngredientsThunk =
   (): TAppThunk => async (dispatch: TAppDispatch) => {
     try {
-      dispatch(setIngridientsLoading());
-      const response = await fetch(`${API_URL}`);
+      dispatch(getIngridientsLoading());
+      const response = await fetch(`${API_URL_INGREDIENTS}`);
       response.json().then((data) => {
         if (response.ok) {
-          console.log(data.data);
-          dispatch(setIngredients(data.data));
+          dispatch(getIngredients(data.data));
         } else {
           return Promise.reject(`Ошибка ${response.status}`);
         }
       });
     } catch (error) {
-      dispatch(setIngredientsError("Ошибка"));
-    } finally {
-      dispatch(setIngridientsLoading());
+      dispatch(getIngredientsError("Ошибка"));
     }
   };

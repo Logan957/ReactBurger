@@ -5,7 +5,8 @@ import {
   ThunkDispatch,
 } from "@reduxjs/toolkit";
 import { store } from "../store";
-import { TIngredient } from "./ingredient-types";
+import { TIngredient } from "./ingredient-type";
+import { TNewOrder } from "./order-type";
 
 export type TRootState = ReturnType<typeof store.getState>;
 export type TAppDispatch = typeof store.dispatch &
@@ -21,9 +22,9 @@ export type TIngridientState = {
 };
 
 export type TOrderState = {
-  createdOrder: boolean;
+  createdOrder: number | null;
   isCreateLoading: boolean;
   createError: string;
 
-  newOrder: Array<TIngredient>;
+  newOrder: TNewOrder;
 };
