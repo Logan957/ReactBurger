@@ -8,3 +8,8 @@
   .constructor_container > div {
     scroll-snap-align: start;
   }
+
+  .drop_zone{
+    height: 696px ;
+    width: 600px;
+  }

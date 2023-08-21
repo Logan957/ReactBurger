@@ -2,79 +2,144 @@ import {
   Button,
   ConstructorElement,
   CurrencyIcon,
-  DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { TIngredient } from "../../utils/types";
-import styles from "./burger-constructor.module.css";
-import { memo } from "react";
+import { memo, useCallback, useEffect } from "react";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
+import { useModal } from "../../hooks/useModal";
 import Modal from "../modals/modal/modal";
 import OrderDetails from "../modals/order-details/order-details";
-import { useModal } from "../../hooks/useModal";
+import styles from "./burger-constructor.module.css";
+import React from "react";
+import DropIngredientTarget from "../dnd/drop-ingredient-target";
+import {
+  addIngredient,
+  clearCreatedOrderThunk,
+  createNewOrderThunk,
+  removeIngredientThunk,
+  setTotalPriceThunk,
+  updateIngredientsThunk,
+} from "../../services/reducers/thunks/order-thunk";
+import { useAppDispatch } from "../../hooks/use-app-dispatch";
+import { TIngredient } from "../../services/types/ingredient-type";
+import DragConstructorElement from "../dnd/drag-constructor-element";
+import update from "immutability-helper";
 
-interface IBurgerConstructorProps {
-  ingredients: Array<TIngredient>;
-}
-
-const BurgerConstructor: React.FC<IBurgerConstructorProps> = (props) => {
+const BurgerConstructor: React.FC = () => {
+  const dispatch = useAppDispatch();
   const { isModalOpen, openModal, closeModal } = useModal();
+  const { newOrder } = useTypedSelector((state) => state.order);
+
+  useEffect(() => {
+    const totalPrice =
+      (newOrder.currentBun?.price! * 2 || 0) +
+      newOrder.ingredients.reduce(
+        (acc: number, ingredient: TIngredient) => acc + ingredient.price,
+        0
+      );
+    dispatch(setTotalPriceThunk(totalPrice));
+  }, [dispatch, newOrder.currentBun, newOrder.ingredients]);
+
+  const handleDrop = useCallback(
+    (ingredient: TIngredient) => {
+      dispatch(addIngredient(ingredient));
+    },
+    [dispatch]
+  );
+
+  const removeIngredient = useCallback(
+    (index: number) => () => {
+      dispatch(removeIngredientThunk(index));
+    },
+    [dispatch]
+  );
+
+  const createOrder = useCallback(() => {
+    dispatch(createNewOrderThunk(newOrder));
+    openModal();
+  }, [dispatch, openModal, newOrder]);
+
+  const handleCloseModal = useCallback(() => {
+    closeModal();
+    dispatch(clearCreatedOrderThunk());
+  }, [closeModal, dispatch]);
 
   const modal = (
-    <Modal onClose={closeModal}>
+    <Modal onClose={handleCloseModal}>
       <OrderDetails />
     </Modal>
   );
 
+  const moveConstructor = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      const updatedIngredients = update(newOrder.ingredients, {
+        $splice: [
+          [dragIndex, 1],
+          [hoverIndex, 0, newOrder.ingredients[dragIndex]],
+        ],
+      }) as TIngredient[];
+
+      dispatch(updateIngredientsThunk(updatedIngredients));
+    },
+    [dispatch, newOrder.ingredients]
+  );
+
   return (
     <div className="mt-25 ml-10">
-      <div className="flex-column">
-        <ConstructorElement
-          extraClass="ml-8"
-          type="top"
-          isLocked={true}
-          text="Краторная булка N-200i (верх)"
-          price={200}
-          thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-        />
-        <div className={`${styles.constructor_container} pr-2`}>
-          {props.ingredients
-            .filter((x) => x.type !== "bun")
-            .map((x) => {
-              return (
-                <div key={x._id}>
-                  <div className="d-flex align-items-center mt-4">
-                    <DragIcon type="primary" />
-                    <ConstructorElement
-                      extraClass="ml-2"
-                      text={x.name}
-                      price={x.price}
-                      thumbnail={x.image}
+      <div className={`flex-column`}>
+        <DropIngredientTarget onDropHandler={handleDrop}>
+          <div className={`${styles.drop_zone}`}>
+            {newOrder.currentBun != null && (
+              <ConstructorElement
+                extraClass="ml-8"
+                type="top"
+                isLocked={true}
+                text={`${newOrder.currentBun.name} (вверх)`}
+                price={newOrder.currentBun.price}
+                thumbnail={newOrder.currentBun.image}
+              />
+            )}
+            <div className={`${styles.constructor_container} pr-2`}>
+              {newOrder.ingredients.map((x, index) => {
+                return (
+                  <div key={x.uniqueId}>
+                    <DragConstructorElement
+                      moveConstructor={moveConstructor}
+                      removeIngredient={removeIngredient}
+                      ingredient={x}
+                      index={index}
                     />
                   </div>
-                </div>
-              );
-            })}
-        </div>
-        <ConstructorElement
-          extraClass="ml-8 mt-4"
-          type="bottom"
-          isLocked={true}
-          text="Краторная булка N-200i (низ)"
-          price={200}
-          thumbnail={"https://code.s3.yandex.net/react/code/bun-02.png"}
-        />
+                );
+              })}
+            </div>
+            {newOrder.currentBun != null && (
+              <ConstructorElement
+                extraClass="ml-8 mt-4"
+                type="bottom"
+                isLocked={true}
+                text={`${newOrder.currentBun.name} (низ)`}
+                price={newOrder.currentBun.price}
+                thumbnail={newOrder.currentBun.image}
+              />
+            )}
+          </div>
+        </DropIngredientTarget>
       </div>
 
       <div className="d-flex align-items-center mt-10 justify-content-end">
         <div className="d-flex">
-          <div className="me-2 text text_type_digits-medium">610</div>
+          <div className="me-2 text text_type_digits-medium">
+            {newOrder.totalPrice}
+          </div>
           <CurrencyIcon type="primary" />
         </div>
         <Button
+          disabled={newOrder.currentBun == null}
           extraClass="ml-10"
           htmlType="button"
           type="primary"
           size="large"
-          onClick={openModal}
+          onClick={createOrder}
         >
           Оформить заказ
         </Button>

@@ -1,49 +1,33 @@
-import { API_URL } from "../../utils/config";
-import { TIngredient } from "../../utils/types";
+import { memo, useEffect } from "react";
+import { useAppDispatch } from "../../hooks/use-app-dispatch";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
+import { getIngredientsThunk } from "../../services/reducers/thunks/ingredient-thunk";
 import AppHeader from "../app-header/app-header";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { useState, useEffect, memo } from "react";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [ingridients, setIngridients] = useState<Array<TIngredient>>([]);
-  const [isError, setIsError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const { ingredientsError } = useTypedSelector((state) => state.ingredient);
 
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const response = await fetch(`${API_URL}`);
-        response.json().then((data) => {
-          if (response.ok) {
-            setIngridients(data.data);
-          } else {
-            return Promise.reject(`Ошибка ${response.status}`);
-          }
-        });
-      } catch (error) {
-        console.error(error);
-        setIsError(true);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    if (!isLoading) {
-      setIsLoading(true);
-      fetchData();
-    }
-  }, []);
+    dispatch(getIngredientsThunk());
+  }, [dispatch]);
   return (
     <>
       <AppHeader />
       <main className="d-flex justify-content-center">
-        {isError ? (
+        {ingredientsError !== "" ? (
           <p>Ошибка при получении данных</p>
         ) : (
           <>
-            <BurgerIngredients ingredients={ingridients} />
-            <BurgerConstructor ingredients={ingridients} />
+            <DndProvider backend={HTML5Backend}>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </DndProvider>
           </>
         )}
       </main>
