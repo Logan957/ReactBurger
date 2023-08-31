@@ -4,7 +4,7 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { Link } from "react-router-dom";
 import styles from "./app-header.module.css";
 import { memo } from "react";
 

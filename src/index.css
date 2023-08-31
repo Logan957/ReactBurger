@@ -20,3 +20,7 @@ code {
 ::-webkit-scrollbar-thumb {
   background-color: #8585AD;
 }
+
+a{
+  color: #4C4CFF !important;
+}
