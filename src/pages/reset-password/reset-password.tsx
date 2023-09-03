@@ -1,14 +1,16 @@
 import React, { memo } from "react";
 import {
-  EmailInput,
   PasswordInput,
   Button,
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
 import styles from "./reset-password.module.css";
+import { resetPassswordThunk } from "../../services/reducers/thunks/user-thunk";
+import { useAppDispatch } from "../../hooks/use-app-dispatch";
 
 const ResetPasswordPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [password, setPassword] = React.useState("");
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
@@ -17,6 +19,10 @@ const ResetPasswordPage: React.FC = () => {
   const [code, setCode] = React.useState("");
   const onChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
+  };
+
+  const resetPassword = () => {
+    dispatch(resetPassswordThunk(password, code));
   };
 
   return (
@@ -48,12 +54,13 @@ const ResetPasswordPage: React.FC = () => {
           type="primary"
           size="medium"
           extraClass={`${styles.button_size}`}
+          onClick={resetPassword}
         >
           Сохранить
         </Button>
       </div>
       <p className="text-center mt-20 text text_type_main-default text_color_inactive">
-        Вспомнили пароль? <Link to="/login"> Войти</Link>
+        Вспомнили пароль? <Link to="/login">Войти</Link>
       </p>
     </div>
   );

@@ -6,7 +6,11 @@
 }
 
 .button_size{
-  width: 253px;
+  width: 128px;
   height: 56px;
   padding: 16px 40px;
+}
+
+a{
+  color: #4C4CFF !important;
 }

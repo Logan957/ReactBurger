@@ -1,0 +1,17 @@
+.link {
+  text-decoration: none;
+  color: #8585AD!important;
+}
+
+.content {
+  width: 320px;
+}
+
+.isActive{
+  color: #F2F2F3 !important;
+}
+
+.footer{
+  color: #8585AD;
+  opacity: 0.4;
+}

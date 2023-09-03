@@ -1,13 +1,17 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import {
   EmailInput,
   PasswordInput,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./login.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/use-app-dispatch";
+import { loginThunk } from "../../services/reducers/thunks/user-thunk";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
 
 const LoginPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = React.useState("");
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -17,6 +21,19 @@ const LoginPage: React.FC = () => {
   const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value);
   };
+
+  const login = () => {
+    dispatch(loginThunk(email, password));
+  };
+
+  const navigate = useNavigate();
+  const { user } = useTypedSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user != null) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   return (
     <div className={`${styles.container} d-flex flex-column`}>
@@ -40,6 +57,7 @@ const LoginPage: React.FC = () => {
           type="primary"
           size="medium"
           extraClass={`${styles.button_size}`}
+          onClick={login}
         >
           Войти
         </Button>

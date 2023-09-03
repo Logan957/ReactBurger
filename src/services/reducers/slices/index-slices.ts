@@ -1,3 +1,4 @@
 import { ingredientReducer} from "./ingredient-slice";
 import { orderReducer } from "./order-slice";
-export { ingredientReducer, orderReducer };
+import { userReducer } from "./user-slice";
+export { ingredientReducer, orderReducer, userReducer };

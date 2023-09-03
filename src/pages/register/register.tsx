@@ -1,4 +1,4 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import {
   EmailInput,
   PasswordInput,
@@ -6,9 +6,13 @@ import {
   Input,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./register.module.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAppDispatch } from "../../hooks/use-app-dispatch";
+import { registerThunk } from "../../services/reducers/thunks/user-thunk";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
 
 const RegisterPage: React.FC = () => {
+  const dispatch = useAppDispatch();
   const [email, setEmail] = React.useState("");
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
@@ -23,6 +27,19 @@ const RegisterPage: React.FC = () => {
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
   };
+
+  const register = () => {
+    dispatch(registerThunk(email, name, password));
+  };
+
+  const navigate = useNavigate();
+  const { user } = useTypedSelector((state) => state.user);
+
+  useEffect(() => {
+    if (user != null) {
+      navigate("/");
+    }
+  }, [user, navigate]);
 
   return (
     <div className={`${styles.container} d-flex flex-column`}>
@@ -57,12 +74,16 @@ const RegisterPage: React.FC = () => {
           type="primary"
           size="medium"
           extraClass={`${styles.button_size}`}
+          onClick={register}
         >
           Зарегистрироваться
         </Button>
       </div>
       <p className="text-center mt-20 text text_type_main-default text_color_inactive">
-        Уже зарегистрированы? <Link to="/login"> Войти</Link>
+        Уже зарегистрированы?{" "}
+        <Link to="/login" className="ml-1">
+          Войти
+        </Link>
       </p>
     </div>
   );
