@@ -8,7 +8,6 @@ import styles from "./login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/use-app-dispatch";
 import { loginThunk } from "../../services/reducers/thunks/user-thunk";
-import { useTypedSelector } from "../../hooks/use-typed-selector";
 
 const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -24,16 +23,10 @@ const LoginPage: React.FC = () => {
 
   const login = () => {
     dispatch(loginThunk(email, password));
+    navigate("/");
   };
 
   const navigate = useNavigate();
-  const { user } = useTypedSelector((state) => state.user);
-
-  useEffect(() => {
-    if (user != null) {
-      navigate("/");
-    }
-  }, [user, navigate]);
 
   return (
     <div className={`${styles.container} d-flex flex-column`}>

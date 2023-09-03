@@ -24,10 +24,11 @@ const ProtectedRouteElement: React.FC<IProtectedRouteElementProps> = ({
     }
   }, [user, init]);
 
-  if (!isUserLoading) {
+  if (isUserLoading) {
     return null;
   }
 
+  console.log(element);
   return user != null ? element : <Navigate to="/login" replace />;
 };
 
