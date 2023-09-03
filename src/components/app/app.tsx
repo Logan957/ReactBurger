@@ -17,10 +17,7 @@ function App() {
       <BrowserRouter>
         <AppHeader />
         <Routes>
-          <Route
-            path="/"
-            element={<ProtectedRouteElement element={<HomePage />} />}
-          />
+          <Route path="/" element={<HomePage />} />
           <Route
             path={PageRoutes.PROFILE}
             element={<ProtectedRouteElement element={<ProfilePage />} />}

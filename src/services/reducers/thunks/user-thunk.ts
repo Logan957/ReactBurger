@@ -21,9 +21,6 @@ export const getUserThunk =
           },
       })
       dispatch(setUser(response.user));
-      localStorage.setItem("refreshToken", response.refreshToken);
-      localStorage.setItem("accessToken", response.accessToken);
-
     } catch (error) {
         dispatch(userError("Ошибка"));
     }
