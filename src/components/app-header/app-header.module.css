@@ -4,12 +4,14 @@
   padding-top: 26px;
 }
 
-.text_white {
-  color: white;
-}
-
 .content {
   width: 1236px;
+}
+
+.link {
+  text-decoration: none;
+  color: #8585ad !important;
+  cursor: pointer;
 }
 
 .logo {
@@ -17,4 +19,8 @@
   left: 50%;
   transform: translateX(-50%);
   top: 15px;
+}
+
+.isActive {
+  color: #f2f2f3 !important;
 }

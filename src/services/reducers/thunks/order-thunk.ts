@@ -2,7 +2,7 @@ import { API_URL_ORDERS } from "../../constants/constant";
 import { TIngredient } from "../../types/ingredient-type";
 import { TNewOrder } from "../../types/order-type";
 import { TAppDispatch, TAppThunk } from "../../types/reducer-type";
-import { request } from "../../utils";
+import { fetchWithRefresh, request } from "../../utils";
 import { addNewIngridient, removeIngridient, createOrderError, createOrderLoading, createdOrder, setCurrentBun,setTotalPrice, setIngredients, resetNewOrder } from "../slices/order-slice";
 
 export const addIngredient =
@@ -47,10 +47,11 @@ export const addIngredient =
   
   try {
     dispatch(createOrderLoading());
-    const response = await request(`${API_URL_ORDERS}`, {
+    const response = await fetchWithRefresh(`${API_URL_ORDERS}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken"),
       },
       body: JSON.stringify({
         ingredients: ids
