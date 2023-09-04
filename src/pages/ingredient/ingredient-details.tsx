@@ -20,9 +20,9 @@ const IngredientDetailsPage: React.FC = () => {
     <>
       {ingredient != null && (
         <div
-          className={`${styles.container} ${styles.container}  d-flex flex-column align-items-center`}
+          className={`${styles.container}  d-flex flex-column align-items-center`}
         >
-          <p className="text text_type_main-large mt-30">Детали ингредиента</p>
+          <p className="text text_type_main-large">Детали ингредиента</p>
           <img
             className={styles.img_size}
             src={ingredient.image}
