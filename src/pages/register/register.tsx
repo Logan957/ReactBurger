@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import {
   EmailInput,
   PasswordInput,
@@ -13,24 +13,31 @@ import { useTypedSelector } from "../../hooks/use-typed-selector";
 
 const RegisterPage: React.FC = () => {
   const dispatch = useAppDispatch();
+
   const [email, setEmail] = React.useState("");
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
+  const onChangeEmail = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setEmail(e.target.value);
+    },
+    []
+  );
 
   const [password, setPassword] = React.useState("");
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const onChangePassword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+    },
+    []
+  );
 
   const [name, setName] = React.useState("");
-  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
-  };
+  }, []);
 
-  const register = () => {
+  const register = useCallback(() => {
     dispatch(registerThunk(email, name, password));
-  };
+  }, [dispatch, email, name, password]);
 
   const navigate = useNavigate();
   const { user } = useTypedSelector((state) => state.user);

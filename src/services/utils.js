@@ -29,12 +29,10 @@ export function checkResponse(res) {
   if (res.ok) {
     return res.json();
   }
-  console.log(res);
   return Promise.reject(`${res.status}`);
 }
 
 export const refreshToken = () => {
-  console.log("refresh");
   return request(`${API_URL_TOKEN}`, {
     method: "POST",
     headers: {
