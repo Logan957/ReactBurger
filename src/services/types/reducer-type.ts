@@ -35,7 +35,7 @@ export type TUserState = {
 
 
   user: TUser|  null,
-  
+  isAuthChecked: boolean,
   
   isUserLoading: boolean,
   userError:  string,

@@ -1,100 +1,79 @@
+import type { PayloadAction } from "@reduxjs/toolkit";
 import { createSlice } from "@reduxjs/toolkit";
 import { SliceNames } from "../../constants/constant";
 import { TUserState } from "../../types/reducer-type";
-import type { PayloadAction } from '@reduxjs/toolkit'
 import { TUser } from "../../types/user-type";
 const initialState: TUserState = {
   user: null,
+  isAuthChecked: false,
 
   isUserLoading: false,
-  userError:  "",
-
+  userError: "",
 
   isLoginLoading: false,
-  loginError:  "",
+  loginError: "",
 
   isRegisterLoading: false,
-  registerError:  "",
-
+  registerError: "",
 
   getedCode: false,
   isGetCodeLoading: false,
-  getCodeError:  "",
+  getCodeError: "",
 
   resetPassword: false,
   isResetPasswordLoading: false,
-  resetPasswordError: ""
+  resetPasswordError: "",
 };
 
 const userSlice = createSlice({
   name: SliceNames.USER,
   initialState: initialState,
   reducers: {
+    setAuthChecked(state: TUserState, action: PayloadAction<boolean>) {
+      state.isAuthChecked = action.payload;
+    },
 
     isUserLoading(state: TUserState) {
       state.isUserLoading = true;
       state.userError = "";
     },
-          
-    setUser(
-      state: TUserState,
-      action: PayloadAction<TUser>
-    ) {
+
+    setUser(state: TUserState, action: PayloadAction<TUser | null>) {
       state.isUserLoading = false;
       state.user = action.payload;
     },
-    
-    userError(
-      state: TUserState,
-      action: PayloadAction<string>
-    ) {
+
+    userError(state: TUserState, action: PayloadAction<string>) {
       state.isUserLoading = false;
       state.userError = action.payload;
     },
 
-
-    
     isLoginLoading(state: TUserState) {
       state.isLoginLoading = true;
       state.loginError = "";
     },
 
-          
-    setLoginUser(
-      state: TUserState,
-      action: PayloadAction<TUser>
-    ) {
+    setLoginUser(state: TUserState, action: PayloadAction<TUser>) {
       state.isLoginLoading = false;
       state.user = action.payload;
     },
-    
-    loginError(
-      state: TUserState,
-      action: PayloadAction<string>
-    ) {
+
+    loginError(state: TUserState, action: PayloadAction<string>) {
       state.isLoginLoading = false;
       state.loginError = action.payload;
     },
 
-
-    isRegisterLoading(
-      state: TUserState,
-    ) {
+    isRegisterLoading(state: TUserState) {
       state.isRegisterLoading = true;
       state.registerError = "";
     },
 
-        
-    setRegisterUser(
-      state: TUserState,
-      action: PayloadAction<TUser>
-    ) {
+    setRegisterUser(state: TUserState, action: PayloadAction<TUser>) {
       state.isRegisterLoading = false;
       state.user = action.payload;
     },
 
-
-    registerError(state: TUserState,     action: PayloadAction<string>) {
+    registerError(state: TUserState, action: PayloadAction<string>) {
       state.isRegisterLoading = false;
       state.registerError = action.payload;
     },
@@ -104,28 +83,19 @@ const userSlice = createSlice({
       state.getCodeError = "";
     },
 
-    getedCode(
-      state: TUserState,
-      action: PayloadAction<boolean>
-    ) {
+    getedCode(state: TUserState, action: PayloadAction<boolean>) {
       state.isGetCodeLoading = false;
       state.getedCode = action.payload;
     },
 
-    getCodeError(
-      state: TUserState,
-      action: PayloadAction<string>
-    ) {
+    getCodeError(state: TUserState, action: PayloadAction<string>) {
       state.isGetCodeLoading = false;
       state.getCodeError = action.payload;
     },
 
-    resetGetedCode(
-      state: TUserState,
-    ) {
+    resetGetedCode(state: TUserState) {
       state.getedCode = false;
     },
-
   },
 });
 
@@ -142,6 +112,7 @@ export const {
   registerError,
   isUserLoading,
   setUser,
-  userError
+  userError,
+  setAuthChecked,
 } = userSlice.actions;
 export const userReducer = userSlice.reducer;

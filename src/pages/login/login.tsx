@@ -1,13 +1,13 @@
-import React, { memo, useEffect } from "react";
 import {
+  Button,
   EmailInput,
   PasswordInput,
-  Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import styles from "./login.module.css";
-import { Link, useNavigate } from "react-router-dom";
+import React, { memo } from "react";
+import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/use-app-dispatch";
 import { loginThunk } from "../../services/reducers/thunks/user-thunk";
+import styles from "./login.module.css";
 
 const LoginPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -23,10 +23,9 @@ const LoginPage: React.FC = () => {
 
   const login = () => {
     dispatch(loginThunk(email, password));
-    navigate("/");
   };
 
-  const navigate = useNavigate();
+  //const navigate = useNavigate();
 
   return (
     <div className={`${styles.container} d-flex flex-column`}>

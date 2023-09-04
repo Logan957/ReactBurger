@@ -1,13 +1,13 @@
-import React, { memo } from "react";
 import {
-  PasswordInput,
   Button,
   Input,
+  PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import React, { memo } from "react";
 import { Link } from "react-router-dom";
-import styles from "./reset-password.module.css";
-import { resetPassswordThunk } from "../../services/reducers/thunks/user-thunk";
 import { useAppDispatch } from "../../hooks/use-app-dispatch";
+import { resetPassswordThunk } from "../../services/reducers/thunks/user-thunk";
+import styles from "./reset-password.module.css";
 
 const ResetPasswordPage: React.FC = () => {
   const dispatch = useAppDispatch();

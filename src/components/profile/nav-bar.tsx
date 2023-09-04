@@ -1,10 +1,18 @@
 import { memo } from "react";
 import { NavLink, useLocation } from "react-router-dom";
-import styles from "./nav-bar.module.css";
+import { useAppDispatch } from "../../hooks/use-app-dispatch";
 import { PageRoutes } from "../../services/constants/constant";
+import { logoutThunk } from "../../services/reducers/thunks/user-thunk";
+import styles from "./nav-bar.module.css";
 
 const NavBar: React.FC = () => {
+  const dispatch = useAppDispatch();
   const location = useLocation();
+
+  const logout = () => {
+    dispatch(logoutThunk());
+  };
+
   return (
     <div className={`d-flex flex-column ${styles.content}`}>
       <NavLink
@@ -25,16 +33,12 @@ const NavBar: React.FC = () => {
       >
         История заказов
       </NavLink>
-      <NavLink
-        to="/"
-        className={({ isActive }) =>
-          `${styles.link} text text_type_main-medium  mt-4${
-            isActive ? styles.isActive : ""
-          }`
-        }
+      <span
+        onClick={logout}
+        className={`${styles.link} text text_type_main-medium  mt-4 cursor-pointer`}
       >
         Выход
-      </NavLink>
+      </span>
 
       <span className={`${styles.footer} mt-20 text text_type_main-small`}>
         В этом разделе вы можете изменить свои персональные данные

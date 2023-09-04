@@ -1,17 +1,18 @@
 .link {
   text-decoration: none;
-  color: #8585AD!important;
+  color: #8585ad !important;
+  cursor: pointer;
 }
 
 .content {
   width: 320px;
 }
 
-.isActive{
-  color: #F2F2F3 !important;
+.isActive {
+  color: #f2f2f3 !important;
 }
 
-.footer{
-  color: #8585AD;
+.footer {
+  color: #8585ad;
   opacity: 0.4;
 }

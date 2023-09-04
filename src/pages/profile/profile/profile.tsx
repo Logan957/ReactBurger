@@ -1,14 +1,22 @@
-import React, { memo } from "react";
-import NavBar from "../../../components/profile/nav-bar";
-import styles from "./profile.module.css";
 import {
+  Button,
   EmailInput,
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import React, { memo } from "react";
+import NavBar from "../../../components/profile/nav-bar";
+import { useAppDispatch } from "../../../hooks/use-app-dispatch";
+import { useTypedSelector } from "../../../hooks/use-typed-selector";
+import { updateUserThunk } from "../../../services/reducers/thunks/user-thunk";
+import styles from "./profile.module.css";
 
 const ProfilePage: React.FC = () => {
-  const [email, setEmail] = React.useState("");
+  const dispatch = useAppDispatch();
+
+  const { user } = useTypedSelector((state) => state.user);
+
+  const [email, setEmail] = React.useState(user?.email ?? "");
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value);
   };
@@ -18,9 +26,20 @@ const ProfilePage: React.FC = () => {
     setPassword(e.target.value);
   };
 
-  const [name, setName] = React.useState("");
+  const [name, setName] = React.useState(user?.name ?? "");
   const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
+  };
+
+  const updateUser = () => {
+    console.log("updateUser");
+    dispatch(updateUserThunk(email, name, password));
+  };
+
+  const resetUser = () => {
+    setEmail(user?.email ?? "");
+    setName(user?.name ?? "");
+    setPassword("");
   };
 
   return (
@@ -54,6 +73,26 @@ const ProfilePage: React.FC = () => {
               name={"password"}
               extraClass="mb-2 mt-6"
             />
+            {password !== "" && email !== "" && name !== "" && (
+              <div className="d-flex justify-content-end mt-3">
+                <Button
+                  htmlType="button"
+                  type="secondary"
+                  size="medium"
+                  onClick={resetUser}
+                >
+                  Отменить
+                </Button>
+                <Button
+                  htmlType="button"
+                  type="primary"
+                  size="medium"
+                  onClick={updateUser}
+                >
+                  Сохранить
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </div>
