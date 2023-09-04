@@ -1,10 +1,10 @@
 import React, { memo } from "react";
-import { TIngredient } from "../../../services/types/ingredient-type";
-import styles from "./ingredient-details.module.css";
-import { useTypedSelector } from "../../../hooks/use-typed-selector";
+import { useTypedSelector } from "../../hooks/use-typed-selector";
+import { TIngredient } from "../../services/types/ingredient-type";
 import { useParams } from "react-router-dom";
+import styles from "./ingredient-details.module.css";
 
-const IngredientDetails: React.FC = () => {
+const IngredientDetailsPage: React.FC = () => {
   const { ingredients, isIngridientsLoading } = useTypedSelector(
     (state) => state.ingredient
   );
@@ -19,7 +19,10 @@ const IngredientDetails: React.FC = () => {
   return (
     <>
       {ingredient != null && (
-        <div className={`${styles.card} d-flex flex-column align-items-center`}>
+        <div
+          className={`${styles.container} ${styles.container}  d-flex flex-column align-items-center`}
+        >
+          <p className="text text_type_main-large mt-30">Детали ингредиента</p>
           <img
             className={styles.img_size}
             src={ingredient.image}
@@ -60,4 +63,4 @@ const IngredientDetails: React.FC = () => {
   );
 };
 
-export default memo(IngredientDetails);
+export default memo(IngredientDetailsPage);

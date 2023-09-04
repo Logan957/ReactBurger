@@ -2,7 +2,7 @@ import { API_URL_ORDERS } from "../../constants/constant";
 import { TIngredient } from "../../types/ingredient-type";
 import { TNewOrder } from "../../types/order-type";
 import { TAppDispatch, TAppThunk } from "../../types/reducer-type";
-import { fetchWithRefresh, request } from "../../utils";
+import { fetchWithRefresh } from "../../utils";
 import { addNewIngridient, removeIngridient, createOrderError, createOrderLoading, createdOrder, setCurrentBun,setTotalPrice, setIngredients, resetNewOrder } from "../slices/order-slice";
 
 export const addIngredient =
