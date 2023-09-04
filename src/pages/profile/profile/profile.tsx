@@ -4,7 +4,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import NavBar from "../../../components/profile/nav-bar";
 import { useAppDispatch } from "../../../hooks/use-app-dispatch";
 import { useTypedSelector } from "../../../hooks/use-typed-selector";
@@ -22,25 +22,27 @@ const ProfilePage: React.FC = () => {
   };
 
   const [password, setPassword] = React.useState("");
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const onChangePassword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+    },
+    []
+  );
 
   const [name, setName] = React.useState(user?.name ?? "");
-  const onChangeName = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value);
-  };
+  }, []);
 
-  const updateUser = () => {
-    console.log("updateUser");
+  const updateUser = useCallback(() => {
     dispatch(updateUserThunk(email, name, password));
-  };
+  }, [dispatch, email, name, password]);
 
-  const resetUser = () => {
+  const resetUser = useCallback(() => {
     setEmail(user?.email ?? "");
     setName(user?.name ?? "");
     setPassword("");
-  };
+  }, [user]);
 
   return (
     <>

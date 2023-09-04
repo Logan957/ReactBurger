@@ -3,7 +3,7 @@ import {
   EmailInput,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/use-app-dispatch";
 import { loginThunk } from "../../services/reducers/thunks/user-thunk";
@@ -17,13 +17,16 @@ const LoginPage: React.FC = () => {
   };
 
   const [password, setPassword] = React.useState("");
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const onChangePassword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+    },
+    []
+  );
 
-  const login = () => {
+  const login = useCallback(() => {
     dispatch(loginThunk(email, password));
-  };
+  }, [dispatch, email, password]);
 
   //const navigate = useNavigate();
 

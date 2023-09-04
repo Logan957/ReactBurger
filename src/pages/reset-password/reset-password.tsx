@@ -3,7 +3,7 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/use-app-dispatch";
 import { resetPassswordThunk } from "../../services/reducers/thunks/user-thunk";
@@ -11,19 +11,23 @@ import styles from "./reset-password.module.css";
 
 const ResetPasswordPage: React.FC = () => {
   const dispatch = useAppDispatch();
+
   const [password, setPassword] = React.useState("");
-  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(e.target.value);
-  };
+  const onChangePassword = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setPassword(e.target.value);
+    },
+    []
+  );
 
   const [code, setCode] = React.useState("");
-  const onChangeCode = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeCode = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setCode(e.target.value);
-  };
+  }, []);
 
-  const resetPassword = () => {
+  const resetPassword = useCallback(() => {
     dispatch(resetPassswordThunk(password, code));
-  };
+  }, [dispatch, password, code]);
 
   return (
     <div className={`${styles.container} d-flex flex-column`}>

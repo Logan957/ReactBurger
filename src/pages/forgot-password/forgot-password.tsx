@@ -1,4 +1,4 @@
-import React, { memo, useEffect } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import {
   EmailInput,
   Button,
@@ -34,9 +34,9 @@ const ForgotPasswordPage: React.FC = () => {
     setEmail(e.target.value);
   };
 
-  const resetPassword = () => {
+  const resetPassword = useCallback(() => {
     dispatch(getResetCodeThunk(email));
-  };
+  }, [dispatch, email]);
 
   return (
     <div className={`${styles.container} d-flex flex-column`}>

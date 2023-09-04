@@ -50,7 +50,6 @@ export const getUserThunk = (): TAppThunk => async (dispatch: TAppDispatch) => {
 export const updateUserThunk =
   (email: string, name: string, password: string): TAppThunk =>
   async (dispatch: TAppDispatch) => {
-    console.log("test");
     try {
       dispatch(isUserLoading());
       const response = await fetchWithRefresh(`${API_URL_USER}`, {
@@ -63,12 +62,13 @@ export const updateUserThunk =
         headers: {
           "Content-Type": "application/json",
           Authorization: localStorage.getItem("accessToken"),
-          body: JSON.stringify({
-            email: email,
-            name: name,
-            password: password,
-          }),
+          
         },
+        body: JSON.stringify({
+          email: email,
+          name: name,
+          password: password,
+        })
       });
       dispatch(setUser(response.user));
     } catch (error) {
@@ -166,7 +166,6 @@ export const registerThunk =
       localStorage.setItem("refreshToken", response.refreshToken);
       localStorage.setItem("accessToken", response.accessToken);
 
-      console.log(response);
     } catch (error) {
       dispatch(registerError("Ошибка"));
     }
@@ -211,9 +210,6 @@ export const resetPassswordThunk =
           token: token,
         }),
       });
-
-      console.log(response);
-
       return response.success;
     } catch (error) {
       return false;
