@@ -55,14 +55,17 @@ function App() {
           path={PageRoutes.PROFILE_ORDERS}
           element={<OnlyAuth component={<ProfileOrdersPage />} />}
         />
-        <Route path={PageRoutes.REGISTER} element={<RegisterPage />} />
+        <Route
+          path={PageRoutes.REGISTER}
+          element={<OnlyUnAuth component={<RegisterPage />} />}
+        />
         <Route
           path={PageRoutes.FORGOT_PASSWORD}
-          element={<ForgotPasswordPage />}
+          element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
         />
         <Route
           path={PageRoutes.RESET_PASSWORD}
-          element={<ResetPasswordPage />}
+          element={<OnlyUnAuth component={<ResetPasswordPage />} />}
         />
         <Route path="*" element={<NotFound404Page />} />
       </Routes>

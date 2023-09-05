@@ -6,8 +6,7 @@ export const request = async (url, options) => {
 
 export const fetchWithRefresh = async (url, options) => {
   try {
-    const res = await fetch(url, options);
-    return await checkResponse(res);
+    return await request(url, options);
   } catch (err) {
     if (err === "403") {
       const refreshData = await refreshToken(); //обновляем токен
@@ -17,8 +16,7 @@ export const fetchWithRefresh = async (url, options) => {
       localStorage.setItem("refreshToken", refreshData.refreshToken);
       localStorage.setItem("accessToken", refreshData.accessToken);
       options.headers.authorization = refreshData.accessToken;
-      const res = await fetch(url, options); //повторяем запрос
-      return await checkResponse(res);
+      return await request(url, options); //повторяем запрос
     } else {
       return Promise.reject(err);
     }

@@ -1,7 +1,7 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React, { memo, useEffect, useRef, useState } from "react";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
-import { useModal } from "../../hooks/useModal";
+import { useModal } from "../../hooks/use-modal";
 import { TIngredient } from "../../services/types/ingredient-type";
 import DragIngredientCard from "../dnd/drag-ingredient-card/drag-ingredient-card";
 import styles from "./burger-ingredients.module.css";

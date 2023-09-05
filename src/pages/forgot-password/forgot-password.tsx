@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useEffect } from "react";
+import React, { memo, useEffect } from "react";
 import {
   EmailInput,
   Button,
@@ -14,6 +14,11 @@ import { useAppDispatch } from "../../hooks/use-app-dispatch";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
 import { PageRoutes } from "../../services/constants/constant";
 import Loader from "../../components/loader/loader";
+import { FormValues, useForm } from "../../hooks/use-form";
+
+interface ForgotPasswordForm extends FormValues {
+  email: string;
+}
 
 const ForgotPasswordPage: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -22,21 +27,21 @@ const ForgotPasswordPage: React.FC = () => {
     (state) => state.user
   );
 
+  const { values, handleChange } = useForm<ForgotPasswordForm>({
+    email: "",
+  });
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    dispatch(getResetCodeThunk(values.email));
+  };
+
   useEffect(() => {
     if (getedCode) {
       navigate(PageRoutes.RESET_PASSWORD);
       dispatch(resetGetedCodeThunk());
     }
   }, [getedCode, navigate, dispatch]);
-
-  const [email, setEmail] = React.useState("");
-  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value);
-  };
-
-  const resetPassword = useCallback(() => {
-    dispatch(getResetCodeThunk(email));
-  }, [dispatch, email]);
 
   return (
     <div className={`${styles.container} d-flex flex-column`}>
@@ -49,24 +54,25 @@ const ForgotPasswordPage: React.FC = () => {
           <p className="text text_type_main-medium text-center">
             Восстановление пароля
           </p>
-          <EmailInput
-            onChange={onChangeEmail}
-            value={email}
-            name={"email"}
-            isIcon={false}
-            extraClass="mt-6"
-          />
-          <div className="text-center mt-6">
-            <Button
-              htmlType="button"
-              type="primary"
-              size="medium"
-              extraClass={`${styles.button_size}`}
-              onClick={resetPassword}
-            >
-              Восстановить
-            </Button>
-          </div>
+          <form onSubmit={handleSubmit}>
+            <EmailInput
+              onChange={handleChange}
+              value={values.email}
+              name={"email"}
+              isIcon={false}
+              extraClass="mt-6"
+            />
+            <div className="text-center mt-6">
+              <Button
+                htmlType="submit"
+                type="primary"
+                size="medium"
+                extraClass={`${styles.button_size}`}
+              >
+                Восстановить
+              </Button>
+            </div>
+          </form>
           <p className="text-center mt-20 text text_type_main-default text_color_inactive">
             Вспомнили пароль?
             <Link to="/login" className="ml-1">

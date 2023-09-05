@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { memo, useCallback, useEffect } from "react";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
-import { useModal } from "../../hooks/useModal";
+import { useModal } from "../../hooks/use-modal";
 import Modal from "../modals/modal/modal";
 import OrderDetails from "../modals/order-details/order-details";
 import styles from "./burger-constructor.module.css";
