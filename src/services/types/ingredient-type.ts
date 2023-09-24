@@ -1,4 +1,4 @@
-export interface TIngredient {
+export type TIngredient = {
   uniqueId : string;
   _id: string;
   name: string;
