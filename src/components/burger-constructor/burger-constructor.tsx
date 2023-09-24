@@ -5,7 +5,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { memo, useCallback, useEffect } from "react";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
-import { useModal } from "../../hooks/useModal";
+import { useModal } from "../../hooks/use-modal";
 import Modal from "../modals/modal/modal";
 import OrderDetails from "../modals/order-details/order-details";
 import styles from "./burger-constructor.module.css";
@@ -23,11 +23,15 @@ import { useAppDispatch } from "../../hooks/use-app-dispatch";
 import { TIngredient } from "../../services/types/ingredient-type";
 import DragConstructorElement from "../dnd/drag-constructor-element";
 import update from "immutability-helper";
+import { useNavigate } from "react-router-dom";
+import { PageRoutes } from "../../services/constants/constant";
 
 const BurgerConstructor: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const { isModalOpen, openModal, closeModal } = useModal();
   const { newOrder } = useTypedSelector((state) => state.order);
+  const { user } = useTypedSelector((state) => state.user);
 
   useEffect(() => {
     const totalPrice =
@@ -54,9 +58,13 @@ const BurgerConstructor: React.FC = () => {
   );
 
   const createOrder = useCallback(() => {
-    dispatch(createNewOrderThunk(newOrder));
-    openModal();
-  }, [dispatch, openModal, newOrder]);
+    if (user) {
+      dispatch(createNewOrderThunk(newOrder));
+      openModal();
+    } else {
+      navigate(PageRoutes.LOGIN);
+    }
+  }, [navigate, dispatch, openModal, newOrder, user]);
 
   const handleCloseModal = useCallback(() => {
     closeModal();

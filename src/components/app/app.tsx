@@ -1,36 +1,87 @@
-import { memo, useEffect } from "react";
+import { memo, useCallback, useEffect } from "react";
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import { useAppDispatch } from "../../hooks/use-app-dispatch";
-import { useTypedSelector } from "../../hooks/use-typed-selector";
-import { getIngredientsThunk } from "../../services/reducers/thunks/ingredient-thunk";
+import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
+import HomePage from "../../pages/home";
+import LoginPage from "../../pages/login/login";
+import NotFound404Page from "../../pages/not-found/not-found";
+import ProfileOrdersPage from "../../pages/profile/profile-orders/profile-orders";
+import ProfilePage from "../../pages/profile/profile/profile";
+import RegisterPage from "../../pages/register/register";
+import ResetPasswordPage from "../../pages/reset-password/reset-password";
+import IngredientPage from "../../pages/ingredient/ingredient-details";
+import { PageRoutes } from "../../services/constants/constant";
+import { checkUserAuthThunk } from "../../services/reducers/thunks/user-thunk";
 import AppHeader from "../app-header/app-header";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
+import { OnlyAuth, OnlyUnAuth } from "../protected-route/protected-route";
+import Modal from "../modals/modal/modal";
+import IngredientDetails from "../modals/ingredient-details/ingredient-details";
+import { getIngredientsThunk } from "../../services/reducers/thunks/ingredient-thunk";
 
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const background = location.state && location.state.background;
 
-  const { ingredientsError } = useTypedSelector((state) => state.ingredient);
+  const handleModalClose = useCallback(() => {
+    // Возвращаемся к предыдущему пути при закрытии модалки
+    navigate(-1);
+  }, [navigate]);
+
+  useEffect(() => {
+    dispatch(checkUserAuthThunk());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getIngredientsThunk());
   }, [dispatch]);
+
   return (
     <>
       <AppHeader />
-      <main className="d-flex justify-content-center">
-        {ingredientsError !== "" ? (
-          <p>Ошибка при получении данных</p>
-        ) : (
-          <>
-            <DndProvider backend={HTML5Backend}>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </DndProvider>
-          </>
-        )}
-      </main>
+      <Routes location={background || location}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
+        <Route
+          path={PageRoutes.LOGIN}
+          element={<OnlyUnAuth component={<LoginPage />} />}
+        />
+        <Route
+          path={PageRoutes.PROFILE}
+          element={<OnlyAuth component={<ProfilePage />} />}
+        />
+        <Route
+          path={PageRoutes.PROFILE_ORDERS}
+          element={<OnlyAuth component={<ProfileOrdersPage />} />}
+        />
+        <Route
+          path={PageRoutes.REGISTER}
+          element={<OnlyUnAuth component={<RegisterPage />} />}
+        />
+        <Route
+          path={PageRoutes.FORGOT_PASSWORD}
+          element={<OnlyUnAuth component={<ForgotPasswordPage />} />}
+        />
+        <Route
+          path={PageRoutes.RESET_PASSWORD}
+          element={<OnlyUnAuth component={<ResetPasswordPage />} />}
+        />
+        <Route path="*" element={<NotFound404Page />} />
+      </Routes>
+
+      {background && (
+        <Routes>
+          <Route
+            path="/ingredients/:ingredientId"
+            element={
+              <Modal title="Детали ингредиента" onClose={handleModalClose}>
+                <IngredientDetails />
+              </Modal>
+            }
+          />
+        </Routes>
+      )}
     </>
   );
 }

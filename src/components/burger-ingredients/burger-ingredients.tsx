@@ -1,11 +1,9 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { memo, useCallback, useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useRef, useState } from "react";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
-import { useModal } from "../../hooks/useModal";
+import { useModal } from "../../hooks/use-modal";
 import { TIngredient } from "../../services/types/ingredient-type";
 import DragIngredientCard from "../dnd/drag-ingredient-card/drag-ingredient-card";
-import IngredientDetails from "../modals/ingredient-details/ingredient-details";
-import Modal from "../modals/modal/modal";
 import styles from "./burger-ingredients.module.css";
 import { useAppDispatch } from "../../hooks/use-app-dispatch";
 import { setCurrentIngredient } from "../../services/reducers/slices/ingredient-slice";
@@ -13,10 +11,8 @@ import { setCurrentIngredient } from "../../services/reducers/slices/ingredient-
 const BurgerIngredients: React.FC = () => {
   const dispatch = useAppDispatch();
   const [currentTab, setCurrentTab] = useState("burgers");
-  const { isModalOpen, openModal, closeModal } = useModal();
-  const { ingredients, currentIngridient } = useTypedSelector(
-    (state) => state.ingredient
-  );
+  const { openModal } = useModal();
+  const { ingredients } = useTypedSelector((state) => state.ingredient);
 
   const { newOrder } = useTypedSelector((state) => state.order);
 
@@ -24,17 +20,6 @@ const BurgerIngredients: React.FC = () => {
     dispatch(setCurrentIngredient(ingredient));
     openModal();
   };
-
-  const handleCloseModal = useCallback(() => {
-    closeModal();
-    dispatch(setCurrentIngredient(null));
-  }, [closeModal, dispatch]);
-
-  const modal = (
-    <Modal title="Детали ингредиента" onClose={handleCloseModal}>
-      <IngredientDetails ingredient={currentIngridient!} />
-    </Modal>
-  );
 
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
@@ -191,7 +176,6 @@ const BurgerIngredients: React.FC = () => {
           </div>
         </>
       </div>
-      {isModalOpen && modal}
     </div>
   );
 };

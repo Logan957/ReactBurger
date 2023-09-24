@@ -4,42 +4,67 @@ import {
   Logo,
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-
+import { Link, useLocation } from "react-router-dom";
 import styles from "./app-header.module.css";
 import { memo } from "react";
+import { PageRoutes } from "../../services/constants/constant";
 
 const AppHeader = () => {
+  const location = useLocation();
+
   return (
     <header className={`${styles.header} d-flex justify-content-center`}>
       <div className={`${styles.content} d-flex justify-content-between`}>
         <div className={`${styles.constructor_button}`}>
-          <a className="text-decoration-none" href="">
-            <BurgerIcon type="primary" />
-            <span
-              className={`${styles.text_white} ms-2 text text_type_main-default`}
-            >
+          <Link
+            className={`${styles.link} ${
+              location.pathname === "/"
+                ? styles.isActive
+                : "text_color_inactive"
+            }`}
+            to="/"
+          >
+            <BurgerIcon
+              type={location.pathname === "/" ? "primary" : "secondary"}
+            />
+            <span className={`ms-2 text text_type_main-default`}>
               Конструктор
             </span>
-          </a>
-          <a href="" className="ml-8 text-decoration-none">
-            <ListIcon type="secondary" />
-            <span className="ms-2 text text_type_main-default text_color_inactive">
+          </Link>
+          <Link
+            to="/"
+            className={`ml-8 ${styles.link}  ${
+              location.pathname === "" ? styles.isActive : "text_color_inactive"
+            }`}
+          >
+            <ListIcon
+              type={location.pathname === "" ? "primary" : "secondary"}
+            />
+            <span className="ms-2 text text_type_main-default">
               Лента заказа
             </span>
-          </a>
+          </Link>
         </div>
-        <div className={`${styles.logo}`}>
+        <Link to="/" className={`${styles.logo}`}>
           <Logo />
-        </div>
-        <a
-          href=""
-          className={`${styles.personal_area_button} text-decoration-none`}
+        </Link>
+        <Link
+          to={PageRoutes.PROFILE}
+          className={`${styles.link} ${
+            location.pathname === PageRoutes.PROFILE
+              ? styles.isActive
+              : "text_color_inactive"
+          }`}
         >
-          <ProfileIcon type="secondary" />
-          <span className="ms-2 text text_type_main-default text_color_inactive">
+          <ProfileIcon
+            type={
+              location.pathname === PageRoutes.PROFILE ? "primary" : "secondary"
+            }
+          />
+          <span className="ms-2 text text_type_main-default">
             Личный кабинет
           </span>
-        </a>
+        </Link>
       </div>
     </header>
   );

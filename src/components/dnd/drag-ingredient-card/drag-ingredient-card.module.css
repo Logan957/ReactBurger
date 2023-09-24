@@ -2,3 +2,9 @@
     width: 272px;
     height: 208px;
 }
+
+.link {
+    text-decoration: none;
+    color: #F2F2F3 !important;
+    cursor: pointer;
+  }

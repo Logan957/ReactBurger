@@ -7,6 +7,7 @@ import {
 import { store } from "../store";
 import { TIngredient } from "./ingredient-type";
 import { TNewOrder } from "./order-type";
+import { TUser } from "./user-type";
 
 export type TRootState = ReturnType<typeof store.getState>;
 export type TAppDispatch = typeof store.dispatch &
@@ -27,4 +28,30 @@ export type TOrderState = {
   createError: string;
 
   newOrder: TNewOrder;
+};
+
+
+export type TUserState = {
+
+
+  user: TUser|  null,
+  isAuthChecked: boolean,
+  
+  isUserLoading: boolean,
+  userError:  string,
+
+
+  isLoginLoading: boolean,
+  loginError:  string,
+
+  isRegisterLoading: boolean,
+  registerError:  string,
+
+  getedCode: boolean;
+  isGetCodeLoading: boolean;
+  getCodeError: string;
+
+  resetPassword: boolean;
+  isResetPasswordLoading: boolean;
+  resetPasswordError: string;
 };
