@@ -4,7 +4,7 @@ import { TIngredient } from "../../services/types/ingredient-type";
 
 interface Props {
   children: ReactNode;
-  onDropHandler: (item: any) => void;
+  onDropHandler: (item: TIngredient) => void;
 }
 
 const DropIngredientTarget: React.FC<Props> = ({ children, onDropHandler }) => {

@@ -7,7 +7,8 @@ import {
   API_URL_USER,
 } from "../../constants/constant";
 import { TAppDispatch, TAppThunk } from "../../types/reducer-type";
-import { fetchWithRefresh, request } from "../../utils";
+import { TUser } from "../../types/user-type";
+import {  fetchWithRefresh, request } from "../../utils";
 import {
   getCodeError,
   getedCode,
@@ -25,10 +26,33 @@ import {
   userError,
 } from "../slices/user-slice";
 
+interface UserData {
+  success: boolean;
+  user: TUser;
+}
+
+interface ApiResponse {
+  success: boolean;
+  message: string;
+}
+
+interface LogoutData extends ApiResponse {
+}
+
+interface ResetData extends ApiResponse {
+}
+
+interface RefreshUserData extends  UserData {
+  refreshToken: string;
+  accessToken: string;
+}
+
+
+
 export const getUserThunk = (): TAppThunk => async (dispatch: TAppDispatch) => {
   try {
     dispatch(isUserLoading());
-    const response = await fetchWithRefresh(`${API_URL_USER}`, {
+    const response = await fetchWithRefresh<UserData>(`${API_URL_USER}`, {
       method: "GET",
       mode: "cors",
       cache: "no-cache",
@@ -37,7 +61,7 @@ export const getUserThunk = (): TAppThunk => async (dispatch: TAppDispatch) => {
       referrerPolicy: "no-referrer",
       headers: {
         "Content-Type": "application/json",
-        Authorization: localStorage.getItem("accessToken"),
+        Authorization: localStorage.getItem("accessToken")!,
       },
     });
     dispatch(setUser(response.user));
@@ -52,7 +76,7 @@ export const updateUserThunk =
   async (dispatch: TAppDispatch) => {
     try {
       dispatch(isUserLoading());
-      const response = await fetchWithRefresh(`${API_URL_USER}`, {
+      const response = await fetchWithRefresh<UserData>(`${API_URL_USER}`, {
         method: "PATCH",
         mode: "cors",
         cache: "no-cache",
@@ -61,7 +85,7 @@ export const updateUserThunk =
         referrerPolicy: "no-referrer",
         headers: {
           "Content-Type": "application/json",
-          Authorization: localStorage.getItem("accessToken"),
+          Authorization: localStorage.getItem("accessToken")!,
           
         },
         body: JSON.stringify({
@@ -90,7 +114,7 @@ export const loginThunk =
   async (dispatch: TAppDispatch) => {
     try {
       dispatch(isLoginLoading());
-      const response = await request(`${API_URL_LOGIN}`, {
+      const response = await request<RefreshUserData>(`${API_URL_LOGIN}`, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -116,7 +140,7 @@ export const loginThunk =
 export const logoutThunk = (): TAppThunk => async (dispatch: TAppDispatch) => {
   try {
     dispatch(isLoginLoading());
-    const response = await request(`${API_URL_LOGOUT}`, {
+    const response = await request<LogoutData>(`${API_URL_LOGOUT}`, {
       method: "POST",
       mode: "cors",
       cache: "no-cache",
@@ -145,7 +169,7 @@ export const registerThunk =
   async (dispatch: TAppDispatch) => {
     try {
       dispatch(isRegisterLoading());
-      const response = await request(`${API_URL_REGISTER}`, {
+      const response = await request<RefreshUserData>(`${API_URL_REGISTER}`, {
         method: "POST",
         mode: "cors",
         cache: "no-cache",
@@ -176,7 +200,7 @@ export const getResetCodeThunk =
   async (dispatch: TAppDispatch) => {
     try {
       dispatch(isGetCodeLoading());
-      const response = await request(`${API_URL_RESET_PASSWORD}`, {
+      const response = await request<ResetData>(`${API_URL_RESET_PASSWORD}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -200,7 +224,7 @@ export const resetPassswordThunk =
   (password: string, token: string): TAppThunk =>
   async (dispatch: TAppDispatch) => {
     try {
-      const response = await request(`${API_URL_RESET_PASSWORD_RESET}`, {
+      const response = await request<ResetData>(`${API_URL_RESET_PASSWORD_RESET}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,5 +1,5 @@
 import React, { memo, useRef } from "react";
-import { XYCoord, useDrag, useDrop } from "react-dnd";
+import { XYCoord, useDrag, useDrop, DragSourceMonitor } from "react-dnd";
 import {
   ConstructorElement,
   DragIcon,
@@ -60,7 +60,7 @@ const DragConstructorElement: React.FC<IDragConstructorElementProps> = ({
     item: () => {
       return { index };
     },
-    collect: (monitor: any) => ({
+    collect: (monitor: DragSourceMonitor) => ({
       isDragging: monitor.isDragging(),
     }),
   });
