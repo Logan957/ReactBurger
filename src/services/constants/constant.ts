@@ -10,7 +10,8 @@ export enum PageRoutes {
   FORGOT_PASSWORD = "/forgot-password",
   RESET_PASSWORD = "/reset-password",
   PROFILE ="/profile",
-  PROFILE_ORDERS ="/profile/orders"
+  PROFILE_ORDERS ="/profile/orders",
+  ORDER_FEED ="/feed"
 }
 
 export const BASE_URL = "https://norma.nomoreparties.space/api"

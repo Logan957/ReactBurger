@@ -10,6 +10,7 @@ import ProfilePage from "../../pages/profile/profile/profile";
 import RegisterPage from "../../pages/register/register";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import IngredientPage from "../../pages/ingredient/ingredient-details";
+import OrderFeedPage from "../../pages/order-feed/order-feed";
 import { PageRoutes } from "../../services/constants/constant";
 import { checkUserAuthThunk } from "../../services/reducers/thunks/user-thunk";
 import AppHeader from "../app-header/app-header";
@@ -43,6 +44,7 @@ function App() {
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/ingredients/:ingredientId" element={<IngredientPage />} />
+        <Route path={PageRoutes.ORDER_FEED} element={<OrderFeedPage />} />
         <Route
           path={PageRoutes.LOGIN}
           element={<OnlyUnAuth component={<LoginPage />} />}

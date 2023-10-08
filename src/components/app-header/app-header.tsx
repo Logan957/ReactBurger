@@ -32,16 +32,22 @@ const AppHeader = () => {
             </span>
           </Link>
           <Link
-            to="/"
-            className={`ml-8 ${styles.link}  ${
-              location.pathname === "" ? styles.isActive : "text_color_inactive"
+            to={PageRoutes.ORDER_FEED}
+            className={`ml-8 ${styles.link} ${
+              location.pathname === PageRoutes.ORDER_FEED
+                ? styles.isActive
+                : "text_color_inactive"
             }`}
           >
             <ListIcon
-              type={location.pathname === "" ? "primary" : "secondary"}
+              type={
+                location.pathname === PageRoutes.ORDER_FEED
+                  ? "primary"
+                  : "secondary"
+              }
             />
             <span className="ms-2 text text_type_main-default">
-              Лента заказа
+              Лента заказов
             </span>
           </Link>
         </div>
