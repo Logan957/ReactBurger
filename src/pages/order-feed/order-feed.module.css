@@ -1,0 +1,41 @@
+.form {
+  position: absolute;
+  top: 300px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.content {
+  width: 1236px;
+}
+
+.feed_container {
+  width:700px; 
+  max-height: 1200px; 
+  overflow-y: auto;
+}
+.statuses_wrapper {
+  display: flex;
+}
+.statuses {
+  width: 280px;
+  margin-right: 32px;
+}
+.statuses_columns {
+  display: flex;
+  flex-flow: row wrap;
+}
+.statuses_column {
+  display: flex;
+  flex-flow: column wrap;
+  margin: 0 32px 32px 0;
+}
+.feed {
+  width: 600px;
+  max-height: 912px;
+  overflow-x: hidden;
+}
+
+.done {
+  color: #00CCCC;
+}

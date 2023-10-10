@@ -14,3 +14,6 @@ export type TIngredient = {
   __v: number;
 }
  
+export interface TIngredientDetails extends TIngredient {
+  quantity: number;
+}

@@ -1,15 +1,20 @@
 import { API_URL_ORDERS } from "../../constants/constant";
 import { TIngredient } from "../../types/ingredient-type";
-import { TCreatedOrder, TNewOrder } from "../../types/order-type";
+import { TCreatedOrder, TNewOrder, TOrder } from "../../types/order-type";
 import { TAppDispatch, TAppThunk } from "../../types/reducer-type";
 import { fetchWithRefresh } from "../../utils";
-import { addNewIngridient, removeIngridient, createOrderError, createOrderLoading, createdOrder, setCurrentBun,setTotalPrice, setIngredients, resetNewOrder } from "../slices/order-slice";
+import { addNewIngridient, removeIngridient, createOrderError, createOrderLoading, createdOrder, setCurrentBun,setTotalPrice, setIngredients, resetNewOrder, getOrderLoading, getedOrder, getOrderError } from "../slices/order-slice";
 
 
 interface OrderResponse {
   success: boolean;
   order: TCreatedOrder;
   name: string;
+}
+
+interface GetOrderResponse {
+  success: boolean;
+  orders: Array<TOrder>;
 }
 
 
@@ -69,6 +74,23 @@ export const addIngredient =
     dispatch(createdOrder(response.order.number));
   } catch (error) {
     dispatch(createOrderError("Ошибка"));
+  }
+}
+export const getOrderThunk =
+  (number : string): TAppThunk => async (dispatch: TAppDispatch) => {
+ 
+  try {
+    dispatch(getOrderLoading());
+    const response = await fetchWithRefresh<GetOrderResponse>(`${API_URL_ORDERS}/${number}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: localStorage.getItem("accessToken")!,
+      },
+    });
+    dispatch(getedOrder(response.orders[0]));
+  } catch (error) {
+    dispatch(getOrderError("Ошибка"));
   }
 }
 

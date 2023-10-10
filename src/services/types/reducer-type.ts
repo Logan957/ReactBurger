@@ -4,10 +4,11 @@ import {
   ThunkAction,
   ThunkDispatch,
 } from "@reduxjs/toolkit";
-import { store } from "../store";
 import { TIngredient } from "./ingredient-type";
-import { TNewOrder } from "./order-type";
+import { TNewOrder, TOrder } from "./order-type";
 import { TUser } from "./user-type";
+import { IMessage } from "./message-type";
+import { store } from "../store";
 
 export type TRootState = ReturnType<typeof store.getState>;
 export type TAppDispatch = typeof store.dispatch &
@@ -26,6 +27,10 @@ export type TOrderState = {
   createdOrder: number | null;
   isCreateLoading: boolean;
   createError: string;
+
+  isGetLoading: boolean,
+  getedOrder: TOrder | null,
+  getError: string,
 
   newOrder: TNewOrder;
 };
@@ -55,3 +60,17 @@ export type TUserState = {
   isResetPasswordLoading: boolean;
   resetPasswordError: string;
 };
+
+export type TOrderHistoryState = {
+  wsConnected: boolean;
+  messages: IMessage | null;
+
+  error?: Event;
+}
+
+export type TOrderFeedState = {
+  wsConnected: boolean;
+  messages: IMessage  | null;
+
+  error?: Event;
+}
