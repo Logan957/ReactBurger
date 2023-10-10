@@ -1,34 +1,34 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { SliceNames } from "../../constants/constant";
-import { TOrderHistoryState } from "../../types/reducer-type";
+import { TWSState } from "../../types/reducer-type";
 import { getCurrentTimestamp } from "../../utils";
   
-  const initialState: TOrderHistoryState = {
+  const initialState: TWSState = {
     wsConnected: false,
     messages: null,
   };
 
-const OrderHistorySlice = createSlice({
-    name: SliceNames.ORDER_HISTORY,
+const WSSlice = createSlice({
+    name: SliceNames.WS,
     initialState: initialState,
     reducers: {
 
-      getMessage(state : TOrderHistoryState, action) {
+      getMessage(state : TWSState, action) {
         state.error = undefined
         state.messages = { ...action.payload, timestamp: getCurrentTimestamp()}
       },
 
-      connectionSuccess(state :TOrderHistoryState) {
+      connectionSuccess(state :TWSState) {
         state.error = undefined;
         state.wsConnected = true;
       },
 
-      connectionError(state :TOrderHistoryState , action) {
+      connectionError(state :TWSState , action) {
         state.error = action.payload;
         state.wsConnected = false;
       },
 
-      connectionClosed(state :TOrderHistoryState) {
+      connectionClosed(state :TWSState) {
         state.error = undefined;
         state.wsConnected = false;
       },
@@ -40,6 +40,6 @@ const OrderHistorySlice = createSlice({
     connectionSuccess,
     connectionError,
     connectionClosed,
-  } = OrderHistorySlice.actions;
-  export const orderHistoryReducer = OrderHistorySlice.reducer;
+  } = WSSlice.actions;
+  export const WSReducer = WSSlice.reducer;
   

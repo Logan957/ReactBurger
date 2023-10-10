@@ -1,8 +1,7 @@
 export enum SliceNames {
   INGREDIENTS = "INGREDIENTS",
   ORDER = "ORDER",
-  ORDER_HISTORY = "ORDER_HISTORY",
-  ORDER_FEED = "ORDER_FEED",
+  WS ="WS",
   USER = "USER",
 }
 

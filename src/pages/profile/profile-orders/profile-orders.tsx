@@ -1,11 +1,23 @@
-import React, { memo } from "react";
+import React, { memo, useEffect } from "react";
 import NavBar from "../../../components/profile/nav-bar";
 import styles from "./profile-orders.module.css";
 import { useTypedSelector } from "../../../hooks/use-typed-selector";
 import OrderCardDetails from "../../../components/order-card-details/order-card-details";
+import { useWebSocket } from "../../../hooks/use-web-socket";
+import { WSS_HISTORY_ORDER } from "../../../services/constants/constant";
 
 const ProfileOrdersPage: React.FC = () => {
-  const { messages } = useTypedSelector((state) => state.orderHistory);
+  const { messages } = useTypedSelector((state) => state.WS);
+  const { connect, closeWs } = useWebSocket();
+  const token = localStorage.getItem("accessToken");
+
+  useEffect(() => {
+    connect(`${WSS_HISTORY_ORDER}?token=${token?.replace("Bearer ", "")}`);
+
+    return () => {
+      closeWs();
+    };
+  }, [token]);
 
   return (
     <>

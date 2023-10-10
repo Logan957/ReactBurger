@@ -1,11 +1,9 @@
 import { combineReducers } from "redux";
-import { ingredientReducer, orderReducer,userReducer,orderHistoryReducer} from "./slices/index-slices";
-import { orderFeedReducer } from "./slices/order-feed-slice";
+import { ingredientReducer, orderReducer,userReducer,WSReducer} from "./slices/index-slices";
 
 export const rootReducer = combineReducers({
   ingredient: ingredientReducer,
   order: orderReducer,
   user: userReducer,
-  orderHistory: orderHistoryReducer,
-  orderFeed: orderFeedReducer,
+  WS: WSReducer,
 });

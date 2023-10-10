@@ -4,14 +4,26 @@ import OrderCardDetails from "../../components/order-card-details/order-card-det
 import styles from "./order-feed.module.css";
 import { TOrder } from "../../services/types/order-type";
 import { splitArr } from "../../services/utils";
+import { useWebSocket } from "../../hooks/use-web-socket";
+import { WSS_FEED_ORDER } from "../../services/constants/constant";
 
 const OrderFeedPage: React.FC = () => {
-  const { messages } = useTypedSelector((state) => state.orderFeed);
+  const { messages } = useTypedSelector((state) => state.WS);
   const [total, setTotal] = useState(0);
   const [totalToday, setTotalToday] = useState(0);
   const [orders, setOrders] = useState<TOrder[]>([]);
   const [createdNumbers, setCreatedNumbers] = useState<TOrder[][]>([]);
   const [doneNumbers, setDoneNumbers] = useState<TOrder[][]>([]);
+
+  const { connect, closeWs } = useWebSocket();
+
+  useEffect(() => {
+    connect(WSS_FEED_ORDER);
+
+    return () => {
+      closeWs();
+    };
+  }, []);
 
   useEffect(() => {
     if (messages != null) {

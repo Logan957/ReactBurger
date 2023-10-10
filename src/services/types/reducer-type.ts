@@ -61,16 +61,9 @@ export type TUserState = {
   resetPasswordError: string;
 };
 
-export type TOrderHistoryState = {
+export type TWSState = {
   wsConnected: boolean;
   messages: IMessage | null;
-
-  error?: Event;
-}
-
-export type TOrderFeedState = {
-  wsConnected: boolean;
-  messages: IMessage  | null;
 
   error?: Event;
 }
