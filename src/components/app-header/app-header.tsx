@@ -12,6 +12,7 @@ import { PageRoutes } from "../../services/constants/constant";
 const AppHeader = () => {
   const location = useLocation();
 
+  const isFeedItemPath = location.pathname.startsWith("/feed");
   return (
     <header className={`${styles.header} d-flex justify-content-center`}>
       <div className={`${styles.content} d-flex justify-content-between`}>
@@ -32,16 +33,14 @@ const AppHeader = () => {
             </span>
           </Link>
           <Link
-            to="/"
-            className={`ml-8 ${styles.link}  ${
-              location.pathname === "" ? styles.isActive : "text_color_inactive"
+            to={PageRoutes.ORDER_FEED}
+            className={`ml-8 ${styles.link} ${
+              isFeedItemPath ? styles.isActive : "text_color_inactive"
             }`}
           >
-            <ListIcon
-              type={location.pathname === "" ? "primary" : "secondary"}
-            />
+            <ListIcon type={isFeedItemPath ? "primary" : "secondary"} />
             <span className="ms-2 text text_type_main-default">
-              Лента заказа
+              Лента заказов
             </span>
           </Link>
         </div>

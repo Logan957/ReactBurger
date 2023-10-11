@@ -7,7 +7,7 @@ import { memo, useCallback, useEffect } from "react";
 import { useTypedSelector } from "../../hooks/use-typed-selector";
 import { useModal } from "../../hooks/use-modal";
 import Modal from "../modals/modal/modal";
-import OrderDetails from "../modals/order-details/order-details";
+import CreateOrderDetails from "../modals/create-order-details/create-order-details";
 import styles from "./burger-constructor.module.css";
 import React from "react";
 import DropIngredientTarget from "../dnd/drop-ingredient-target";
@@ -73,7 +73,7 @@ const BurgerConstructor: React.FC = () => {
 
   const modal = (
     <Modal onClose={handleCloseModal}>
-      <OrderDetails />
+      <CreateOrderDetails />
     </Modal>
   );
 

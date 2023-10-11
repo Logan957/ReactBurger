@@ -8,3 +8,8 @@
 .content {
   width: 1236px;
 }
+
+.feed_container {
+  max-height: 800px; 
+  overflow-y: auto;
+}

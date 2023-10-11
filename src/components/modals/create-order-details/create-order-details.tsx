@@ -1,10 +1,10 @@
 import React, { memo } from "react";
-import styles from "./order-detail.module.css";
+import styles from "./create-order-details.module.css";
 import DoneIcon from "../../icons/done-icon";
 import { useTypedSelector } from "../../../hooks/use-typed-selector";
 import Loader from "../../loader/loader";
 
-const OrderDetails: React.FC = () => {
+const CreateOrderDetails: React.FC = () => {
   const { createdOrder, createError, isCreateLoading } = useTypedSelector(
     (state) => state.order
   );
@@ -48,4 +48,4 @@ const OrderDetails: React.FC = () => {
   );
 };
 
-export default memo(OrderDetails);
+export default memo(CreateOrderDetails);

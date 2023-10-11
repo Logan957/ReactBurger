@@ -3,12 +3,16 @@ import { SliceNames } from "../../constants/constant";
 import { TOrderState } from "../../types/reducer-type";
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { TIngredient } from "../../types/ingredient-type";
-import { TNewOrder } from "../../types/order-type";
+import { TNewOrder, TOrder } from "../../types/order-type";
 import { v4 as uuidv4 } from 'uuid';
 const initialState: TOrderState = {
   isCreateLoading: false,
   createdOrder: null,
   createError: "",
+
+  isGetLoading: false,
+  getedOrder: null,
+  getError: "",
 
   newOrder: {
     currentBun : null, 
@@ -35,6 +39,27 @@ const orderSlice = createSlice({
       state.createdOrder = action.payload;
     },
 
+    getOrderError(
+      state: TOrderState,
+      action: PayloadAction<string>
+    ) {
+      state.isGetLoading = false;
+      state.getError = action.payload;
+    },
+
+    getOrderLoading(state: TOrderState) {
+      state.isGetLoading = true;
+      state.getError = "";
+    },
+
+    getedOrder(
+      state: TOrderState,
+      action: PayloadAction<TOrder>
+    ) {
+      state.isGetLoading = false;
+      state.getedOrder = action.payload;
+    },
+
     createOrderError(
       state: TOrderState,
       action: PayloadAction<string>
@@ -42,6 +67,7 @@ const orderSlice = createSlice({
       state.isCreateLoading = false;
       state.createError = action.payload;
     },
+
 
     addNewIngridient(
       state: TOrderState,
@@ -107,6 +133,9 @@ export const {
   setCurrentBun,
   setTotalPrice,
   setIngredients,
-  resetNewOrder
+  resetNewOrder,
+  getOrderError,
+  getOrderLoading,
+  getedOrder
 } = orderSlice.actions;
 export const orderReducer = orderSlice.reducer;

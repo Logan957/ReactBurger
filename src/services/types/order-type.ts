@@ -17,3 +17,13 @@ export type TNewOrder = {
     _id: string
   }
   
+
+  export type TOrder = {
+    createdAt : Date
+    ingredients : Array<string>
+    name : string
+    number: number
+    status : string
+    updateAt : Date
+    _id: string
+  }
