@@ -2,6 +2,8 @@
   "name": "react-burger",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://logan957.github.io/ReactBurger",
+
   "dependencies": {
     "@babel/preset-flow": "^7.22.15",
     "@reduxjs/toolkit": "^1.9.5",
@@ -13,6 +15,7 @@
     "@types/react-dom": "^18.2.7",
     "@ya.praktikum/react-developer-burger-ui-components": "^1.14.0",
     "bootstrap": "^5.3.1",
+    "gh-pages": "^6.0.0",
     "immutability-helper": "^3.1.1",
     "jest-expo": "^49.0.0",
     "react": "^18.2.0",
@@ -35,7 +38,8 @@
     "build": "react-scripts build --browser chrome",
     "eject": "react-scripts eject --browser chrome",
     "test": "jest",
-    "cypress": "cypress open cache clear"
+    "cypress": "cypress open cache clear",
+    "deploy": "npm run build && gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
