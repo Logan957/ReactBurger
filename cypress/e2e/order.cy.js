@@ -2,7 +2,7 @@ describe('constructor', function() {
 
         beforeEach(() => {
           cy.viewport(1920, 1080)
-          cy.visit('http://localhost:3000');
+          cy.visit('/')
         });
 
         it('open ingredient', function() {
@@ -12,21 +12,29 @@ describe('constructor', function() {
         it('drug and drop and create order', function() {
           const dataTransfer = new DataTransfer();
           cy.get('[data-test-id="sauce"]').first()
+          .as('sauce')
+        
           .trigger('dragstart', { dataTransfer });
-
+        
           cy.get('[data-test-id="drop_zone"]')
+          .as('dropZone')
+        
           .trigger('drop', { dataTransfer });
-
+        
           cy.get('[data-test-id="bun"]').first()
+          .as('bun')
+        
           .trigger('dragstart', { dataTransfer });
-
-          cy.get('[data-test-id="drop_zone"]')
+        
+          cy.get('@dropZone')
           .trigger('drop', { dataTransfer });
-
+        
           cy.get('[data-test-id="main"]').first()
+          .as('main')
+        
           .trigger('dragstart', { dataTransfer });
-
-          cy.get('[data-test-id="drop_zone"]')
+        
+          cy.get('@dropZone')
           .trigger('drop', { dataTransfer });
 
           cy.get('button').contains('Оформить заказ').click()

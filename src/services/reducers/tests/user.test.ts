@@ -1,23 +1,6 @@
-import { userReducer, setAuthChecked, isUserLoading, setUser, userError, isLoginLoading, setLoginUser, loginError, isRegisterLoading, setRegisterUser, registerError, isGetCodeLoading, getedCode, getCodeError, resetGetedCode } from '../slices/user-slice';
+import {initialState, userReducer, setAuthChecked, isUserLoading, setUser, userError, isLoginLoading, setLoginUser, loginError, isRegisterLoading, setRegisterUser, registerError, isGetCodeLoading, getedCode, getCodeError, resetGetedCode } from '../slices/user-slice';
 
 describe('userReducer', () => {
-  const initialState = {
-    user: null,
-    isAuthChecked: false,
-    isUserLoading: false,
-    userError: "",
-    isLoginLoading: false,
-    loginError: "",
-    isRegisterLoading: false,
-    registerError: "",
-    getedCode: false,
-    isGetCodeLoading: false,
-    getCodeError: "",
-    resetPassword: false,
-    isResetPasswordLoading: false,
-    resetPasswordError: "",
-  };
-
   it('should handle setAuthChecked', () => {
     const nextState = userReducer(initialState, setAuthChecked(true));
     expect(nextState.isAuthChecked).toBe(true);

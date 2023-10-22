@@ -1,21 +1,7 @@
 import { mockIngredients } from '../../mocks/ingredients';
-import { orderReducer, createOrderLoading, createdOrder, createOrderError, removeIngridient, setCurrentBun, setTotalPrice, setIngredients, resetNewOrder, getOrderError, getOrderLoading, getedOrder } from '../slices/order-slice';
+import {initialState, orderReducer, createOrderLoading, createdOrder, createOrderError, removeIngridient, setCurrentBun, setTotalPrice, setIngredients, resetNewOrder, getOrderError, getOrderLoading, getedOrder } from '../slices/order-slice';
 
 describe('orderReducer', () => {
-  const initialState = {
-    isCreateLoading: false,
-    createdOrder: null,
-    createError: "",
-    isGetLoading: false,
-    getedOrder: null,
-    getError: "",
-    newOrder: {
-      currentBun : null, 
-      ingredients : [],
-      totalPrice : 0,
-    },
-  };
-
   it('should handle createOrderLoading', () => {
     const nextState = orderReducer(initialState, createOrderLoading());
     expect(nextState.isCreateLoading).toBe(true);

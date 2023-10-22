@@ -34,7 +34,8 @@
     "start": "react-scripts start --browser chrome",
     "build": "react-scripts build --browser chrome",
     "eject": "react-scripts eject --browser chrome",
-    "test": "jest"
+    "test": "jest",
+    "cypress": "cypress open cache clear"
   },
   "eslintConfig": {
     "extends": [

@@ -5,7 +5,8 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { TIngredient } from "../../types/ingredient-type";
 import { TNewOrder, TOrder } from "../../types/order-type";
 import { v4 as uuidv4 } from 'uuid';
-const initialState: TOrderState = {
+
+export const initialState: TOrderState = {
   isCreateLoading: false,
   createdOrder: null,
   createError: "",

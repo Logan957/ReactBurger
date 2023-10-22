@@ -1,14 +1,7 @@
 import { mockIngredients } from '../../mocks/ingredients';
-import { ingredientReducer, getIngridientsLoading, getIngredients, getIngredientsError, setCurrentIngredient } from '../slices/ingredient-slice';
+import { ingredientReducer, getIngridientsLoading, getIngredients, getIngredientsError, setCurrentIngredient, initialState } from '../slices/ingredient-slice';
 
 describe('ingredientReducer', () => {
-  const initialState = {
-    isIngridientsLoading: false,
-    ingredients: [],
-    ingredientsError: "",
-    currentIngridient: null,
-  };
-
   it('should handle getIngridientsLoading', () => {
     const nextState = ingredientReducer(initialState, getIngridientsLoading());
     expect(nextState.isIngridientsLoading).toBe(true);

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { SliceNames } from "../../constants/constant";
 import { TUserState } from "../../types/reducer-type";
 import { TUser } from "../../types/user-type";
+
 export const initialState: TUserState = {
   user: null,
   isAuthChecked: false,
