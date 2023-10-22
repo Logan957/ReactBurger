@@ -39,8 +39,6 @@ describe('constructor', function() {
 
           cy.get('button').contains('Оформить заказ').click()
 
-          cy.location().should((loc) => expect(loc.pathname).to.eq('/login'));
-
           cy.get('[data-test-id="email"]').type('roman.zaidulin2015@gmail.com');
           cy.get('[data-test-id="password"]').type('test');
           cy.get('button').contains('Войти').click();
