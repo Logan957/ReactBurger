@@ -10,7 +10,7 @@ const CreateOrderDetails: React.FC = () => {
   );
 
   return (
-    <div className={styles.card}>
+    <div className={styles.card} data-test-id={"created_order_modal"}>
       {isCreateLoading ? (
         <>
           <Loader />
@@ -25,6 +25,7 @@ const CreateOrderDetails: React.FC = () => {
             <>
               <p
                 className={`${styles.shadow} mt-15 text text_type_digits-large`}
+                data-test-id={"order_number"}
               >
                 {createdOrder}
               </p>

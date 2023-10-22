@@ -110,7 +110,11 @@ const BurgerIngredients: React.FC = () => {
               .filter((x) => x.type === "bun")
               .map((x) => {
                 return (
-                  <div key={x._id} onClick={handleOpenModal(x)}>
+                  <div
+                    key={x._id}
+                    data-test-id={"bun"}
+                    onClick={handleOpenModal(x)}
+                  >
                     <DragIngredientCard
                       count={newOrder.currentBun?._id === x._id ? 1 : 0}
                       ingredient={x}
@@ -132,7 +136,11 @@ const BurgerIngredients: React.FC = () => {
               .filter((x) => x.type === "sauce")
               .map((x) => {
                 return (
-                  <div key={x._id} onClick={handleOpenModal(x)}>
+                  <div
+                    key={x._id}
+                    onClick={handleOpenModal(x)}
+                    data-test-id={"sauce"}
+                  >
                     <DragIngredientCard
                       count={newOrder.ingredients.reduce((acc, y) => {
                         if (y._id === x._id) {
@@ -159,7 +167,11 @@ const BurgerIngredients: React.FC = () => {
               .filter((x) => x.type === "main")
               .map((x) => {
                 return (
-                  <div key={x._id} onClick={handleOpenModal(x)}>
+                  <div
+                    key={x._id}
+                    onClick={handleOpenModal(x)}
+                    data-test-id={"main"}
+                  >
                     <DragIngredientCard
                       count={newOrder.ingredients.reduce((acc, y) => {
                         if (y._id === x._id) {
