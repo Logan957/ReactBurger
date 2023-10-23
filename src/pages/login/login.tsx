@@ -33,6 +33,7 @@ const LoginPage: React.FC = () => {
       <p className="text text_type_main-medium text-center">Вход</p>
       <form onSubmit={handleSubmit}>
         <EmailInput
+          data-test-id={"email"}
           onChange={handleChange}
           value={values.email}
           name={"email"}
@@ -40,6 +41,7 @@ const LoginPage: React.FC = () => {
           extraClass="mt-6"
         />
         <PasswordInput
+          data-test-id={"password"}
           onChange={handleChange}
           value={values.password}
           name={"password"}

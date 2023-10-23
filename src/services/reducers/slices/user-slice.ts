@@ -3,7 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 import { SliceNames } from "../../constants/constant";
 import { TUserState } from "../../types/reducer-type";
 import { TUser } from "../../types/user-type";
-const initialState: TUserState = {
+
+export const initialState: TUserState = {
   user: null,
   isAuthChecked: false,
 
@@ -25,7 +26,7 @@ const initialState: TUserState = {
   resetPasswordError: "",
 };
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
   name: SliceNames.USER,
   initialState: initialState,
   reducers: {

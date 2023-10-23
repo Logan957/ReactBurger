@@ -4,7 +4,7 @@ import { SliceNames } from "../../constants/constant";
 import { TIngredient } from "../../types/ingredient-type";
 import { TIngridientState } from "../../types/reducer-type";
 
-const initialState: TIngridientState = {
+export const initialState: TIngridientState = {
   isIngridientsLoading: false,
   ingredients: [],
   ingredientsError: "",

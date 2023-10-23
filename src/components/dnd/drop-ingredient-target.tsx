@@ -15,7 +15,11 @@ const DropIngredientTarget: React.FC<Props> = ({ children, onDropHandler }) => {
     },
   });
 
-  return <div ref={dropTarget}>{children}</div>;
+  return (
+    <div data-test-id={"drop_zone"} ref={dropTarget}>
+      {children}
+    </div>
+  );
 };
 
 export default memo(DropIngredientTarget);
